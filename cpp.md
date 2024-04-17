@@ -141,3 +141,35 @@ void arr1(Type var){
     cout << var << endl;
 }
 ```
+## Работа с файлами
+`#include <fstraem>` - библиотека для работы с файлами
+### Открыть файл
+Создаём объект файла "fout" для записи:\
+```
+int n = 1232434245;
+fstream fout("output.txt", ios::out);
+fout << "Hello world" << n << endl;
+fout.close();
+```
+Создаём объект файла "file" для записи в конце:\
+```
+int n = 43;
+fstream file("output.txt", ios::out | ios::app);
+file << "Hello world" << n << endl;
+file.close();
+```
+Создаём объект файла "fin" для чтения:\
+`fstream fin("example.txt", ios::in);`\
+### Второй способ открытия файла
+Для чтения:\
+`ifstream file("example.txt");`\
+Для записи:\
+`ofstream file("example.txt");`
+### Повторно открыть файл
+`file.open("example.txt", ios::app);`
+
+---
+`>>` - считывает до пробела\
+`getline()` - считывает строку\
+`fin.eof()` - курсор в конце (?)\
+`fin.get()` - получить символ\
