@@ -142,8 +142,33 @@ string str;
 string str2("Hello");
 ```
 `string str(10, '!')` - Создание строки из одного и того же символа\
-`char *str = "Hello!"` - Раньше использовали вместо string
-`\0` - нуль-символ, который находится в конце строки
+`char *str = "Hello!"` - Раньше использовали вместо string\
+`\0` - нуль-символ, который находится в конце строки\
+Конкатенация:
+```
+    string str(10, '!');
+    string str2(5, 'A');
+    cout << str + str2 << endl;
+```
+`cout << str3.size() << endl;` - Размер строки
+Увеличение и уменьшение строки
+```
+str3.resize(9);
+cout << str3 << endl;
+str3.resize(20, '#');
+cout << str3 << endl;
+```
+Сравнение строк (Не зависит от длины строки, только по символам)
+```
+string str = "ABCDE";
+string str2 = "BBCDE";
+
+if (str > str2) {
+    cout << "First" << endl;
+} else {
+    cout << "Second" << endl;
+}
+```
 ## Шаблонные функции
 ```
 template <typename Type>
