@@ -268,5 +268,30 @@ __Оптимизация:__
 #### Сортировка вставками
 Начинаем алгоритм со второго элемента и сравниваем его с предыдущем. Если надо, то меняем местами. Сравниваем следующую пару, если поменяли местами, то снова сравниваем предыдущую.  
 
+```
+void insert_sort(vector<int>& array, int size, bool mode=true) {
+	int i = 1;
+	while (i < size) {
+	if (((array[i-1] > array[i]) && mode) || ((array[i-1] < array[i]) && !mode)) 
+	{
+		swap(array[i], array[i-1]);
+		if (i != 1) i--;
+	} else {
+		i++;
+	}
+}
+```
 
-
+### _Vector_ - динамический массив
+`#include <vector>` - подключение\
+`vector<int> array` - объявление пустого массива размером 0\
+`array.size()` - Получить размер массива\
+`array.push_back(var)` - добавить один элемент в конец массива\
+```
+void showVector(const vector<int>& array){
+	for (int i = 0; i < array.size(); i++) {
+		cout << array[i] << " ";
+	}
+	cout << endl;
+}
+```
