@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/python.md",
+                "file": "Study/Алгоритмы.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Study/python.md",
+                "file": "Study/Алгоритмы.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Study/python.md",
+                "file": "Study/Алгоритмы.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Study/python.md"
+                "file": "Study/Алгоритмы.md"
               }
             }
           }
@@ -148,21 +148,23 @@
   },
   "active": "3cf2fe4af9f658c4",
   "lastOpenFiles": [
-    "Study/Сети и протоколы сетей.md",
-    "Study/python.md",
+    "pushed.sh",
     "Study/ООП.md",
-    "Study/cpp.md",
-    "Study/Алгоритмы.md",
     "Presentation/Algoritms/Algoritm_lection_1.pdf",
+    "Presentation/Algoritms",
+    "Presentation",
+    "Study/cpp.md",
+    "Study/bash.md",
+    "Study/Сети и протоколы сетей.md",
+    "Study/Операционные системы и среды.md",
+    "Study/Алгоритмы.md",
+    "test",
+    "Study/python.md",
     "Study/venv/lib/python3.12/site-packages/__pycache__/ipykernel_launcher.cpython-312.pyc",
     "Study/venv/lib/python3.12/site-packages/ipykernel-6.29.5.dist-info/licenses/LICENSE",
     "Study/venv/lib/python3.12/site-packages/ipykernel-6.29.5.dist-info/licenses",
     "Study/venv/lib/python3.12/site-packages/ipykernel-6.29.5.dist-info/WHEEL",
     "Study/venv/lib/python3.12/site-packages/ipykernel-6.29.5.dist-info/REQUESTED",
-    "Study/venv/lib/python3.12/site-packages/ipykernel-6.29.5.dist-info/RECORD",
-    "Study/venv/lib/python3.12/site-packages/ipykernel-6.29.5.dist-info/METADATA",
-    "Study/venv/lib/python3.12/site-packages/ipykernel-6.29.5.dist-info/INSTALLER",
-    "Study/venv/lib/python3.12/site-packages/ipykernel-6.29.5.dist-info",
     "Study/venv/lib/python3.12/site-packages/ipykernel/resources/logo-svg.svg",
     "Study/venv/lib/python3.12/site-packages/ipykernel/resources/logo-64x64.png",
     "Study/venv/lib/python3.12/site-packages/ipykernel/resources/logo-32x32.png",
@@ -175,10 +177,8 @@
     "Study/venv/lib/python3.12/site-packages/zmq/backend/cffi/README.md",
     "Study/venv/lib/python3.12/site-packages/pyzmq-26.2.0.dist-info/licenses/LICENSE.md",
     "README.md",
-    "Study/bash.md",
     "Presentation/Без названия.canvas",
     "Presentation/Algoritm_lection_1.pdg.md",
-    "Study/Операционные системы и среды.md",
     "Проекты/aiogram.md",
     "Проекты/Задачи.md",
     "Проекты/Без названия.canvas",
