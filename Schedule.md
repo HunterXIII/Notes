@@ -1,0 +1,1 @@
+I wake up at 7.25.  I wash my face. Then I have breakfast. I ride my bike to college at 8.20. I have lunch at 12.15 in restaurant "Wega". I go home at 16.30 if we had 4 lessons. But this time depends on the number of lessons. After lessons I have dinner. Then I do my homework. I go to bed at 11 p.m. 
