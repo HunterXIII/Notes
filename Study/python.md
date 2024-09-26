@@ -232,7 +232,10 @@ print(student_1['group'])
 ```output
 'K0709-23/1'
 ```
-Метод `get()`
+
+
+> Метод `get()`
+
 ```python
 student_1 = {'group': 'K0709-23/1', 'age': 17}
 student_1.get('age')
