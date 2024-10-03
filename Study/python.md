@@ -394,8 +394,57 @@ if ＿name＿ = "＿main＿"
 	main()
 ```
 \_\_main\_\_ - это имя среды, в которой выполняется код верхнего уровня. "Код верхнего уровня" - это первый указанный пользователем модуль Python, который начинает работать. Это "верхний уровень", т.к. он импортирует все остальные модули, необходимые программе. Иногда "код верхнего уровня" называют точкой входа в приложение.
+
+# args и kwargs
 ```python
-*args
+*args # Можно и другое слово
 **kwargs
+
+def foo(*args):
+    print(f"{args = }")
+    
+foo(1, 2, 3, True, "fdd")
+```
+```output
+args = (1, 2, 3, True, 'fdd')
+```
+```python
+def foo(**kwargs):
+    print(f"{kwargs = }")
+
+foo(a=1, b=3, c=True, d="JNdfkk")
+```
+```output
+kwargs = {'a': 1, 'b': 3, 'c': True, 'd': 'JNdfkk'}
+```
+```python
+def foo(pos1, *args, kw=1, **kwargs):
+    print(f"{pos1 =}, {args =}, {kw = }, {kwargs = }")
+
+foo("Pos", 1,2,3,4, kw2=2, kw3=3)
+```
+```output
+pos1 ='Pos', args =(1, 2, 3, 4), kw = 1, kwargs = {'kw2': 2, 'kw3': 3}
+```
+`def foo(pos1, /, *, kw=0)` 
+- `/` - конец позиционных документов
+- `*` - дальше идут только ключевые 
+## Подсказки 
+## Входные элементы
+```python
+def foo(a: int): ...
+def foo(a: int = 1): ...
+def foo(a: int | float): ...
+def foo(a: int | float = 1): ...
+```
+## Выходные элементы
+```python
+def foo(a: int) -> int | float | str: ...
 ```
 \
+```python
+from typing import Union
+
+a: list[Union[int, float]] = [1]
+a
+```
