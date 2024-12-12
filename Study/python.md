@@ -596,3 +596,96 @@ source .venv/bin/activate
 - Log message (лог-сообщение)
 ## Логирование
 __Модуль logging__ - позволяет вести логи как в консоле, так и в файле. Имеете уровни деббагинга: CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET \
+# Лекция 9. Тестирование
+Unittest или pytest
+- Модульный 
+- Интеграционный
+- Системный
+- Функциональный
+- Subcutaneous 
+```python
+def test_<name test>():
+    assert function() == value
+```
+```sh
+pytest -v # подробная разница в значениях
+pytest --collect-only # покажет какие тесты будут запущены
+pytest -k "keyword1 or keyword2" --collect-only # Покажет тесты только содержащие keyword1 или keyword2
+```
+
+```python
+import pytest
+...
+
+@pytest.mark.run_these_please # Поставили отметку "run_these_please"
+def test_somebody():
+    ...
+```
+```sh
+pytest -m run_these_please # Запустит тесты только с отметками run_these_please
+```
+```sh
+pytest /tests/test_one.py # Запуск тестов из test_one.py
+pytest /tests/test_two.py::test_for_example # Заупск опредлённого теста(функции)
+```
+
+Вывод print() в какой-либо поток (по умолчанию не печатается)
+```sh
+pytest -s ...
+# OR
+pytest --capture=<method> 
+```
+
+## Ожидание Exceptions
+Проверка на вызов ошибки ZeroDivisionError
+```python
+import pytest
+
+def test_raises():
+    with pytest.raises(ZeroDivisionError):
+        1 / 0
+        
+```
+Проверка сообщения об ошибке
+```python
+import pytest
+
+def test_raises():
+    with pytest.raises(ZeroDivisionError) as e:
+        1 / 0
+    assert str(e) == "One division Zero"
+```
+## Fixture
+pytest.fixture - функция, выполняемая до или после тестовых функций
+```python
+import pytest
+
+@pytest.fixture
+def some_data():
+    return 52
+    
+def test_some_data(some_data):
+    assert some_data == 42
+```
+У `fixture` есть `scope`:
+- `scope='function'` - выполнение перед каждой тестовой функции
+- `scope='class'` - выполнение перед каждым тестовым классом
+- `scope='module'` - выполнение перед каждым модулем
+- `scope='session'` - выполнение один раз за сессию
+## Monkeypatch
+`monkeypatch` - встроенная fixture в pytest, позволяет изменять и заменять существующие объекты во время тестирования
+```python
+def calculate(a, b):
+    delay()
+    return a+b
+
+def delay():
+    print("Sleep 5 second")
+    time.sleep(5)
+    
+
+def test_example(monkeypatch):
+    def mock_return(): # Имитация для функции delay()
+        return "Заменяющая функция"
+    monkeypatch.setattr("<path_to_module>.calculate.delay", mock_return)
+```
