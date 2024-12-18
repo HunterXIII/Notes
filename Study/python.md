@@ -689,3 +689,66 @@ def test_example(monkeypatch):
         return "Заменяющая функция"
     monkeypatch.setattr("<path_to_module>.calculate.delay", mock_return)
 ```
+
+# Лекция 10. Стандартная библиотека Python
+## os
+> Для работы с операционной системой
+
+Наличие файла в системе:
+```python
+import os
+os.path.exists("hello.txt")
+```
+- Функции isfile и isdir - проверка что это файл или директория соответственно
+- Функция getcwd - возвращает текущую директорию
+**Модуль shutil**
+- shutil.copy()
+- shutil.move()
+
+- os.chmod()
+    - os.chmod('file.txt', 0o400)
+    - os.chmod('file.txt', stat.S_IRUSR)
+- os.chown() - меняет владельца или группу 
+- os.path.abspath('file.txt')
+- os.path.realoath('symlink.txt') # файл, который ссылается на другой, выдаёт путь настоящего файла
+- os.remove('file.txt')
+- os.mkdir()
+- os.rmdir()
+- os.listdir()
+- os.chdir()
+- os.walk(path) - объект генератор, выполняющий обход каталога в пути path. Возвращает кортежи формата: ("путь", директория, файлы)
+- os.name - имя ОС
+- os.getpid() - текущий id процесса
+- os.uname()
+- os.system() - выполняет системную команду
+## dotenv
+> Считывает пары ключ-значение из файла `.env`
+
+```python
+import os
+import dotenv
+
+dotenv.load_dotenv()
+host = os.environ["HOST"]
+port = os.environ.get("PORT")
+address = os.environ.get("ADDRESS", default=f"{host}:8000")
+```
+```env
+HOST=127.0.0.1
+PORT=8080
+ADDRESS=${HOST}:${PORT}
+```
+
+## sys
+> Доступ к переменным, используемым или поддерживаемым интерпретатором 
+
+- sys.argv - возвращает список параметров командной строки, передаваемых скрипту
+    - argv[0] - название скрипта
+
+## argparse
+> Для работы с sys.argv
+---
+- sys.stdin()
+- sys.stdout()
+- sys.stderr()
+
