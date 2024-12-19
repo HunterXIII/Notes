@@ -52,40 +52,6 @@
       "height": 580
     },
     {
-      "id": "f00449285d370807",
-      "type": "text",
-      "text": "```python\ndef BellmanaForda(V: int, graph: list[list[int]], start: int):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    used = [0] * V\n      \n    for _ in range(V - 1):\n        u = min(range(V), key=lambda x: (used[x], dist[x]))\n        used[u] = 1\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                dist[v] = dist[u] + w\n        \n    for u in range(V):\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                return \"Graph has negative cycle\"\n    return dist\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -990,
-      "y": 1050,
-      "width": 760,
-      "height": 440
-    },
-    {
-      "id": "29c8e781da9d0066",
-      "type": "text",
-      "text": "```python\ndef FloidaWarshalla(V, graph):\n    dist = [[float(\"inf\")] * V for _ in range(V)]\n    for u in range(V):\n        for v, w in graph[u]:\n            dist[u][v] = w\n    for u in range(V):\n        dist[u][u] = 0\n      \n    for k in range(V):\n        for i in range(V):\n            for j in range(V):\n                dist[i][j] = min(dist[i][j],dist[i][k] + dist[k][j])\n    return dist\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -149,
-      "y": 1200,
-      "width": 680,
-      "height": 340
-    },
-    {
-      "id": "2a7126f35a501b45",
-      "type": "text",
-      "text": "#Беллмана-Форда\n1. Инициализация: всем вершинам присваивается предполагаемое расстояние $dist[v]=∞$, кроме вершины-источника, для которой $dist(u)=0$.\n2. Релаксация множества рёбер $E$\n    1. Для каждого ребра $e=(v,z)∈E$ вычисляется новое предполагаемое расстояние $new_dist(z)=dist(v)+w(e)$.\n    2. Если $new_dist(z)<dist(z)$, то происходит присваивание $dist(z)=new_dist(z)$ (релаксация ребра $e$).\n3. Алгоритм производит релаксацию всех рёбер графа до тех пор, пока на очередной итерации происходит релаксация хотя бы одного ребра.\n4. **Критерий наличия достижимого цикла отрицательного веса**: если после $n-1$ фазы мы выполним ещё одну фазу, и на ней произойдёт хотя бы одна релаксация, то граф содержит цикл отрицательного веса, достижимый из $v$; в противном случае, такого цикла нет.",
-      "styleAttributes": {},
-      "x": -950,
-      "y": 570,
-      "width": 680,
-      "height": 420
-    },
-    {
       "id": "d31603f3949ce6eb",
       "type": "text",
       "text": "```python\ndef BFS(V: int, graph: list[list[int]], start: int = 0):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    queue = [start]\n    visited = [0] * V\n    while queue:\n        u = queue.pop(0)\n        visited[u] = 1\n        for v in graph[u]:\n            if not visited[v] and dist[u] + 1 < dist[v]:\n                dist[v] = dist[u] + 1\n                queue.append(v)\n    return dist\n```",
@@ -96,18 +62,6 @@
       "y": 174,
       "width": 600,
       "height": 360
-    },
-    {
-      "id": "adae0d9707b15dd3",
-      "type": "text",
-      "text": "```python\ndef Deikstra(V: int, graph: list[list[int]], start: int):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    used = [0] * V\n      \n    for _ in range(V):\n        u = min(range(V), key=lambda x: (used[x], dist[x]))\n        used[u] = 1\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                dist[v] = dist[u] + w\n    return dist\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -120,
-      "y": 560,
-      "width": 623,
-      "height": 340
     },
     {
       "id": "5218b071aa2ef482",
@@ -185,16 +139,6 @@
       "y": -760,
       "width": 740,
       "height": 360
-    },
-    {
-      "id": "a55ca236bd51926b",
-      "type": "text",
-      "text": "#Флойда-Уоршелла\n1. Создаём матрицу кратчайших расстояний между всеми вершинами $dist$\n2. Перебираем все вершины в трёх вложенных циклах $k, i, j$ соответствено\n3. $dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])$ - Если расстояние от $i$ до $j$ через вершину $k$ меньше чем расстояние в матрице, то заменяем",
-      "styleAttributes": {},
-      "x": -179,
-      "y": 960,
-      "width": 740,
-      "height": 180
     },
     {
       "id": "d787f403d9f5df1a",
@@ -297,6 +241,62 @@
       "y": -1420,
       "width": 389,
       "height": 461
+    },
+    {
+      "id": "f00449285d370807",
+      "type": "text",
+      "text": "```python\ndef BellmanaForda(V: int, graph: list[list[int]], start: int):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    used = [0] * V\n      \n    for _ in range(V - 1):\n        u = min(range(V), key=lambda x: (used[x], dist[x]))\n        used[u] = 1\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                dist[v] = dist[u] + w\n        \n    for u in range(V):\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                return \"Graph has negative cycle\"\n    return dist\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -990,
+      "y": 1050,
+      "width": 760,
+      "height": 440
+    },
+    {
+      "id": "29c8e781da9d0066",
+      "type": "text",
+      "text": "```python\ndef FloidaWarshalla(V, graph):\n    dist = [[float(\"inf\")] * V for _ in range(V)]\n    for u in range(V):\n        for v, w in graph[u]:\n            dist[u][v] = w\n    for u in range(V):\n        dist[u][u] = 0\n      \n    for k in range(V):\n        for i in range(V):\n            for j in range(V):\n                dist[i][j] = min(dist[i][j],dist[i][k] + dist[k][j])\n    return dist\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -149,
+      "y": 1200,
+      "width": 680,
+      "height": 340
+    },
+    {
+      "id": "2a7126f35a501b45",
+      "type": "text",
+      "text": "#Беллмана-Форда\n1. Инициализация: всем вершинам присваивается предполагаемое расстояние $dist[v]=∞$, кроме вершины-источника, для которой $dist(u)=0$.\n2. Релаксация множества рёбер $E$\n    1. Для каждого ребра $e=(v,z)∈E$ вычисляется новое предполагаемое расстояние $new_dist(z)=dist(v)+w(e)$.\n    2. Если $new_dist(z)<dist(z)$, то происходит присваивание $dist(z)=new_dist(z)$ (релаксация ребра $e$).\n3. Алгоритм производит релаксацию всех рёбер графа до тех пор, пока на очередной итерации происходит релаксация хотя бы одного ребра.\n4. **Критерий наличия достижимого цикла отрицательного веса**: если после $n-1$ фазы мы выполним ещё одну фазу, и на ней произойдёт хотя бы одна релаксация, то граф содержит цикл отрицательного веса, достижимый из $v$; в противном случае, такого цикла нет.",
+      "styleAttributes": {},
+      "x": -950,
+      "y": 570,
+      "width": 680,
+      "height": 420
+    },
+    {
+      "id": "adae0d9707b15dd3",
+      "type": "text",
+      "text": "```python\ndef Deikstra(V: int, graph: list[list[int]], start: int):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    used = [0] * V\n      \n    for _ in range(V):\n        u = min(range(V), key=lambda x: (used[x], dist[x]))\n        used[u] = 1\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                dist[v] = dist[u] + w\n    return dist\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -120,
+      "y": 560,
+      "width": 623,
+      "height": 340
+    },
+    {
+      "id": "a55ca236bd51926b",
+      "type": "text",
+      "text": "#Флойда-Уоршелла\n1. Создаём матрицу кратчайших расстояний между всеми вершинами $dist$\n2. Перебираем все вершины в трёх вложенных циклах $k, i, j$ соответствено\n3. $dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])$ - Если расстояние от $i$ до $j$ через вершину $k$ меньше чем расстояние в матрице, то заменяем",
+      "styleAttributes": {},
+      "x": -179,
+      "y": 960,
+      "width": 740,
+      "height": 180
     }
   ],
   "edges": [
