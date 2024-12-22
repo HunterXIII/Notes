@@ -52,18 +52,6 @@
       "height": 580
     },
     {
-      "id": "d31603f3949ce6eb",
-      "type": "text",
-      "text": "```python\ndef BFS(V: int, graph: list[list[int]], start: int = 0):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    queue = [start]\n    visited = [0] * V\n    while queue:\n        u = queue.pop(0)\n        visited[u] = 1\n        for v in graph[u]:\n            if not visited[v] and dist[u] + 1 < dist[v]:\n                dist[v] = dist[u] + 1\n                queue.append(v)\n    return dist\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -920,
-      "y": 174,
-      "width": 600,
-      "height": 360
-    },
-    {
       "id": "5218b071aa2ef482",
       "type": "text",
       "text": "```python\ndef Kraskala(V, graph):\n    edges = []\n    for u in range(V)\n        for v, w in graph[u]:\n            edges.append((w, u, v))\n    edges.sort()\n    parent = [i for i in range(V)]\n    rank = [1] * V\n  \n    summa = 0\n    mst = 0\n    for w, u, v in edges:\n        parent_u = find_parent(u, parent)\n        parent_v = find_parent(v, parent)\n        if parent_u != parent_v:\n            union(parent_u, parent_v, parent, rank)\n            summa += w\n            mst += 1\n            if mst == V - 1:\n                break\n    return summa\n    \ndef find_parent(u, parent):\n    if u == parent[u]:\n        return u\n    parent[u] = find_parent(parent[u], parent)\n    return parent[u]\n    \ndef union(self, u, v, parent, rank):\n    if rank[u] > rank[v]:\n        parent[v] = u\n    elif rank[u] < rank[v]:\n        parent[u] = v\n    else:\n        parent[v] = u\n        rank[u] += 1\n```",
@@ -192,6 +180,30 @@
       "height": 420
     },
     {
+      "id": "3db0bec6568d80c9",
+      "type": "text",
+      "text": "#Кана \n1. Создаём список, где указываем для каждой вершины количество входящих рёбер \n2. Если количество входящих рёбер равно 0, добавить в очередь\n3. Взять вершину из очереди и пометить как посещённую\n4. Для всех смежных вершин уменьшить количество входящих рёбер на 1\n5. Добавить в очередь вершину, если количество входящих рёбер равно 0\n6. Пока очередь не пуста снова с шага 3 \n",
+      "styleAttributes": {
+        "border": null
+      },
+      "x": -180,
+      "y": -760,
+      "width": 740,
+      "height": 276
+    },
+    {
+      "id": "d31603f3949ce6eb",
+      "type": "text",
+      "text": "```python\ndef BFS(V: int, graph: list[list[int]], start: int = 0):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    queue = [start]\n    visited = [0] * V\n    while queue:\n        u = queue.pop(0)\n        visited[u] = 1\n        for v in graph[u]:\n            if not visited[v] and dist[u] + 1 < dist[v]:\n                dist[v] = dist[u] + 1\n                queue.append(v)\n    return dist\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -920,
+      "y": 174,
+      "width": 600,
+      "height": 360
+    },
+    {
       "id": "1341fbfd2e9b586e",
       "type": "text",
       "text": "#BFS\n1. Создадим массив $dist$ расстояний. Изначально $dist[s]=0$ (поскольку расстояний от вершины до самой себя равно $0$) и $dist[v]=∞$ для $v≠s$.\n2. Создадим очередь $q$. Изначально в $q$ добавим вершину $s$.\n3. Пока очередь $q$ не пуста, делаем следующее:\n    1. Извлекаем вершину $v$ из очереди.\n    2. Рассматриваем все рёбра $(v,u)∈E$, то есть те, которые выходят из вершины $v$ Для каждого такого ребра пытаемся сделать релаксацию: если $dist[v]+1<dist[u]$, то мы делаем присвоение $dist[u]=dist[v]+1$ и добавляем вершину $u$ в очередь.",
@@ -224,18 +236,6 @@
       "x": -960,
       "y": -760,
       "width": 680,
-      "height": 276
-    },
-    {
-      "id": "3db0bec6568d80c9",
-      "type": "text",
-      "text": "#Кана \n1. Создаём список, где указываем для каждой вершины количество входящих рёбер \n2. Если количество входящих рёбер равно 0, добавить в очередь\n3. Взять вершину из очереди и пометить как посещённую\n4. Для всех смежных вершин уменьшить количество входящих рёбер на 1\n5. Добавить в очередь вершину, если количество входящих рёбер равно 0\n6. Пока очередь не пуста снова с шага 3 \n",
-      "styleAttributes": {
-        "border": null
-      },
-      "x": -180,
-      "y": -760,
-      "width": 740,
       "height": 276
     },
     {
