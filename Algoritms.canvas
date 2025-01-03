@@ -53,16 +53,14 @@
       "label": "Z и Префикс функции"
     },
     {
-      "id": "c3364578f1554f53",
+      "id": "d15f345f007343b1",
       "type": "text",
-      "text": "```python\nvisited = [0] * V\ndef dfs(graph: list[list[int]], u):\n    visited[u] = 1\n    for v in graph[u]:\n        if not visited[v]:\n            dfs(v)\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -930,
-      "y": -420,
-      "width": 620,
-      "height": 180
+      "text": "#multiplication #умножение\n\n```python\ndef mul(a: str, b: str):\n    if len(a) < len(b):\n        a, b = b, a\n    res = \"0\"\n    b = \"0\" * (len(a) - len(b)) + b\n    for i in range(len(b) - 1, -1, -1):\n        if b[i] == '0':\n            continue\n        res = add(res, easy_mul(a, b[i]) + \"0\" * (len(b) - i - 1)) \n    return res\n```",
+      "styleAttributes": {},
+      "x": -2540,
+      "y": 600,
+      "width": 700,
+      "height": 340
     },
     {
       "id": "f05e5ea64b927d13",
@@ -101,18 +99,6 @@
       "height": 350
     },
     {
-      "id": "3db0bec6568d80c9",
-      "type": "text",
-      "text": "#Кана \n1. Создаём список, где указываем для каждой вершины количество входящих рёбер \n2. Если количество входящих рёбер равно 0, добавить в очередь\n3. Взять вершину из очереди и пометить как посещённую\n4. Для всех смежных вершин уменьшить количество входящих рёбер на 1\n5. Добавить в очередь вершину, если количество входящих рёбер равно 0\n6. Пока очередь не пуста снова с шага 3 \n",
-      "styleAttributes": {
-        "border": null
-      },
-      "x": -180,
-      "y": -760,
-      "width": 740,
-      "height": 276
-    },
-    {
       "id": "000795c1adf1b984",
       "type": "text",
       "text": "#merge_sort\n\n```python\ndef merge_sort(arr):\n    if len(arr) == 1:\n        return arr\n    i = len(arr) // 2 \n    left = merge_sort(arr[:i])\n    right = merge_sort(arr[i:])\n\n    return merge(left, right)\n```\n\n#merge\n\n```python\ndef merge(a, b):\n    i, j, arr = 0, 0, []\n    while True:\n        if a[i] < b[j]:\n            arr.append(a[i]) \n            i += 1\n            if i == len(a):\n                arr.extend(b[j:])\n                break\n        else:\n            arr.append(b[j])\n            j += 1\n            if j == len(b):\n                arr.extend(a[i:])\n                break\n    return arr\n```\n",
@@ -135,189 +121,14 @@
       "height": 420
     },
     {
-      "id": "db2fed752149b8ef",
+      "id": "664ccf587e992e4d",
       "type": "text",
-      "text": "#DFS\n1. Выбираем любую вершину из еще не пройденных, обозначим ее как $u$\n2. Запускаем процедуру $dfs(u)$\n     1. Помечаем вершину $u$ как пройденную\n     2. Для каждой не пройденной смежной с $u$ вершиной (назовем ее $v$) запускаем $dfs(v)$\n3. Повторяем шаги 1 и 2, пока все вершины не окажутся пройденными.",
-      "styleAttributes": {
-        "textAlign": null,
-        "border": null
-      },
-      "x": -960,
-      "y": -760,
-      "width": 680,
-      "height": 276
-    },
-    {
-      "id": "1341fbfd2e9b586e",
-      "type": "text",
-      "text": "#BFS\n1. Создадим массив $dist$ расстояний. Изначально $dist[s]=0$ (поскольку расстояний от вершины до самой себя равно $0$) и $dist[v]=∞$ для $v≠s$.\n2. Создадим очередь $q$. Изначально в $q$ добавим вершину $s$.\n3. Пока очередь $q$ не пуста, делаем следующее:\n    1. Извлекаем вершину $v$ из очереди.\n    2. Рассматриваем все рёбра $(v,u)∈E$, то есть те, которые выходят из вершины $v$ Для каждого такого ребра пытаемся сделать релаксацию: если $dist[v]+1<dist[u]$, то мы делаем присвоение $dist[u]=dist[v]+1$ и добавляем вершину $u$ в очередь.",
+      "text": "#power #степень\n\n```python\ndef power(a, n):\n    k = n\n    b = 1\n    c = a\n    while k > 0:\n        if k % 2 == 0:\n            k /= 2\n            c *= c\n        else:\n            k -= 1\n            b *= c\n    return b\n```",
       "styleAttributes": {},
-      "x": -960,
-      "y": -200,
-      "width": 680,
-      "height": 320
-    },
-    {
-      "id": "2a7126f35a501b45",
-      "type": "text",
-      "text": "#Беллмана-Форда\n1. Инициализация: всем вершинам присваивается предполагаемое расстояние $dist[v]=∞$, кроме вершины-источника, для которой $dist(u)=0$.\n2. Релаксация множества рёбер $E$\n    1. Для каждого ребра $e=(v,z)∈E$ вычисляется новое предполагаемое расстояние $new_dist(z)=dist(v)+w(e)$.\n    2. Если $new_dist(z)<dist(z)$, то происходит присваивание $dist(z)=new_dist(z)$ (релаксация ребра $e$).\n3. Алгоритм производит релаксацию всех рёбер графа до тех пор, пока на очередной итерации происходит релаксация хотя бы одного ребра.\n4. **Критерий наличия достижимого цикла отрицательного веса**: если после $n-1$ фазы мы выполним ещё одну фазу, и на ней произойдёт хотя бы одна релаксация, то граф содержит цикл отрицательного веса, достижимый из $v$; в противном случае, такого цикла нет.",
-      "styleAttributes": {},
-      "x": -950,
-      "y": 570,
-      "width": 680,
-      "height": 420
-    },
-    {
-      "id": "d31603f3949ce6eb",
-      "type": "text",
-      "text": "```python\ndef BFS(V: int, graph: list[list[int]], start: int = 0):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    queue = [start]\n    visited = [0] * V\n    while queue:\n        u = queue.pop(0)\n        visited[u] = 1\n        for v in graph[u]:\n            if not visited[v] and dist[u] + 1 < dist[v]:\n                dist[v] = dist[u] + 1\n                queue.append(v)\n    return dist\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -920,
-      "y": 174,
-      "width": 600,
-      "height": 360
-    },
-    {
-      "id": "5c2dab23a7054246",
-      "type": "text",
-      "text": "```python\ndef Kana(V: int, graph: list[list[int]]):\n    incoming_nodes = [0] * V\n    queue = []\n    \n    for u in range(V):\n        for v in graph[u]:\n            incoming_nodes[v] += 1\n    \n    for u in range(V):\n        if incoming_nodes[u] == 0:\n            queue.append(u)\n            \n    topological_sort = []\n    while queue:\n        u = queue.pop(0)\n        topological_sort.append(u)\n        for v in graph[u]:\n            incoming_nodes[v] -= 1\n            if incoming_nodes[v] == 0:\n                queue.append(v)\n    if len(topological_sort) != V:\n        return \"Graph has a cycle\"\n    return topological_sort\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -53,
-      "y": -420,
-      "width": 487,
-      "height": 580
-    },
-    {
-      "id": "d68ad71144f9f8a8",
-      "type": "text",
-      "text": "#Дейкстры\n1. Создать массив $dist$ расстояний. Изначально $dist[s]=0$ и $dist[v]=∞$ для $v≠s$.\n2. Создать булев массив $used$, $used[v]=0$ для всех вершин $v$ — в нём мы будем отмечать, совершалась ли релаксация из вершины.\n3. Пока существует вершина $v$ такая, что $used[v]=0$ и $dist[v]≠∞$, притом, если таких вершин несколько, то $v$ — вершина с минимальным $dist[v]$, делать следующее:\n    1. Пометить, что мы совершали релаксацию из вершины $v$, то есть присвоить $used[v]=1$.\n    2. Рассматриваем все рёбра $(v,u)∈E$. Для каждого ребра пытаемся сделать релаксацию: если $dist[v]+w(v,u)<dist[u]$, присвоить $dist[u]=dist[v]+w(v,u)$.",
-      "styleAttributes": {},
-      "x": -180,
-      "y": 180,
-      "width": 740,
-      "height": 320
-    },
-    {
-      "id": "5218b071aa2ef482",
-      "type": "text",
-      "text": "```python\ndef Kraskala(V, graph):\n    edges = []\n    for u in range(V)\n        for v, w in graph[u]:\n            edges.append((w, u, v))\n    edges.sort()\n    parent = [i for i in range(V)]\n    rank = [1] * V\n  \n    summa = 0\n    mst = 0\n    for w, u, v in edges:\n        parent_u = find_parent(u, parent)\n        parent_v = find_parent(v, parent)\n        if parent_u != parent_v:\n            union(parent_u, parent_v, parent, rank)\n            summa += w\n            mst += 1\n            if mst == V - 1:\n                break\n    return summa\n    \ndef find_parent(u, parent):\n    if u == parent[u]:\n        return u\n    parent[u] = find_parent(parent[u], parent)\n    return parent[u]\n    \ndef union(self, u, v, parent, rank):\n    if rank[u] > rank[v]:\n        parent[v] = u\n    elif rank[u] < rank[v]:\n        parent[u] = v\n    else:\n        parent[v] = u\n        rank[u] += 1\n```",
-      "styleAttributes": {},
-      "x": 610,
+      "x": -1620,
       "y": 600,
-      "width": 800,
-      "height": 840
-    },
-    {
-      "id": "a55ca236bd51926b",
-      "type": "text",
-      "text": "#Флойда-Уоршелла\n1. Создаём матрицу кратчайших расстояний между всеми вершинами $dist$\n2. Перебираем все вершины в трёх вложенных циклах $k, i, j$ соответствено\n3. $dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])$ - Если расстояние от $i$ до $j$ через вершину $k$ меньше чем расстояние в матрице, то заменяем",
-      "styleAttributes": {},
-      "x": -179,
-      "y": 960,
-      "width": 740,
-      "height": 180
-    },
-    {
-      "id": "29c8e781da9d0066",
-      "type": "text",
-      "text": "```python\ndef FloidaWarshalla(V, graph):\n    dist = [[float(\"inf\")] * V for _ in range(V)]\n    for u in range(V):\n        for v, w in graph[u]:\n            dist[u][v] = w\n    for u in range(V):\n        dist[u][u] = 0\n      \n    for k in range(V):\n        for i in range(V):\n            for j in range(V):\n                dist[i][j] = min(dist[i][j],dist[i][k] + dist[k][j])\n    return dist\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -149,
-      "y": 1200,
-      "width": 680,
-      "height": 340
-    },
-    {
-      "id": "f00449285d370807",
-      "type": "text",
-      "text": "```python\ndef BellmanaForda(V: int, graph: list[list[int]], start: int):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    used = [0] * V\n      \n    for _ in range(V - 1):\n        u = min(range(V), key=lambda x: (used[x], dist[x]))\n        used[u] = 1\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                dist[v] = dist[u] + w\n        \n    for u in range(V):\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                return \"Graph has negative cycle\"\n    return dist\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -990,
-      "y": 1050,
-      "width": 760,
-      "height": 440
-    },
-    {
-      "id": "adae0d9707b15dd3",
-      "type": "text",
-      "text": "```python\ndef Deikstra(V: int, graph: list[list[int]], start: int):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    used = [0] * V\n      \n    for _ in range(V):\n        u = min(range(V), key=lambda x: (used[x], dist[x]))\n        used[u] = 1\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                dist[v] = dist[u] + w\n    return dist\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -120,
-      "y": 560,
-      "width": 623,
-      "height": 340
-    },
-    {
-      "id": "8fd4637d227ce31e",
-      "type": "text",
-      "text": "```python\ndef Forda_Falkersona(s, t, V, graph):\n    flow = [[0] * V for _ in range(V)]\n    for u in range(V):\n        for v, f in graph[u]:\n            if flow[v][u] != f:\n                flow[u][v] = f\n\n    maxFlow = 0\n  \n    def BFS(s, t, path):\n        queue = [s]\n        visited = [0] * V\n        while queue:\n            u = queue.pop(0)\n            visited[u] = 1\n            for v, value in enumerate(flow[u]):\n                if not visited[v] and value > 0:\n                    queue.append(v)\n                    path[v] = u\n                    if v == t:\n                    return True\n        return False\n        \n    path = [-1] * V\n    while BFS(s, t, path):\n        minFlow = float(\"inf\")\n        v = t\n        while v != s:\n            minFlow = min(minFlow, flow[path[v]][v])\n            v = path[v]\n        v = t\n        while v != s:\n            flow[path[v]][v] -= minFlow\n            flow[v][path[v]] += minFlow\n            v = path[v]\n        \n        maxFlow += minFlow\n  \nreturn maxFlow\n```",
-      "styleAttributes": {},
-      "x": 1490,
-      "y": -356,
-      "width": 720,
-      "height": 890
-    },
-    {
-      "id": "d15f345f007343b1",
-      "type": "text",
-      "text": "#multiplication #умножение\n\n```python\ndef mul(a: str, b: str):\n    if len(a) < len(b):\n        a, b = b, a\n    res = \"0\"\n    b = \"0\" * (len(a) - len(b)) + b\n    for i in range(len(b) - 1, -1, -1):\n        if b[i] == '0':\n            continue\n        res = add(res, easy_mul(a, b[i]) + \"0\" * (len(b) - i - 1)) \n    return res\n```",
-      "styleAttributes": {},
-      "x": -2540,
-      "y": 600,
-      "width": 700,
-      "height": 340
-    },
-    {
-      "id": "27fa3d25f8517b75",
-      "type": "text",
-      "text": "```python\ndef Prima(V, graph):\n    keys = [float(\"inf\")] * V\n    mst = [0] * V\n    parent = [None] * V\n    keys[0] = 0\n    parent[0] = -1\n    for _ in range(V):\n        u = min(range(V), key=lambda x: (mst[x], keys[x]))\n        mst[u] = 1\n        for v, w in graph[u]:\n            if not mst[v] and keys[v] > w:\n                keys[v] = w\n                parent[v] = u\n    return parent, sum(keys)\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": 690,
-      "y": -330,
-      "width": 640,
-      "height": 360
-    },
-    {
-      "id": "fe8caee8c34c0eff",
-      "type": "text",
-      "text": "#Прима\n1. Создаём список:\n    1. Ключей, который изначально для каждой вершины равен $∞$, кроме стартовой вершины, у которой ключ равен $0$.\n    2. Список включённых в $MST$ вершин (по сути список из 0)\n    3. Список $parent$, который изначально для каждой вершины равен $-1$\n2. Берём вершину $u$, которая не включена в $MST$, такую, что $keys(u)$  минимальна\n3. Перебираем смежные с ней вершины $v$ и  $w$ вес ребра $u,v$ \n4. Если $keys(v) > w$, то $keys(v) = w$ и $parent(v) = u$\n5. Повторяем с шага 2, пока все вершины не добавлены в $MST$",
-      "styleAttributes": {},
-      "x": 640,
-      "y": -760,
-      "width": 740,
-      "height": 360
-    },
-    {
-      "id": "dafa1ddee9d5264c",
-      "type": "text",
-      "text": "#Краскала\n1. Сортируем рёбра в порядке возрастания их весов.\n2. Создаём список $parent$ (представителей), где изначально каждая вершина является представителем самой себя. Также создаём список $rank$, изначально ранг каждой вершины равен 1.\n3. Берём ребро из отсортированного списка $(u, v, w)$. \n4. Ищем представителей у $u$ и $v$.\n    1. Если представитель один и тот же, то переходим к шагу 3, пропуская это ребро\n    2. Если представители разные, выполняем объединение (шаг 5)\n5. Объединение: \n    1. $rank(u) > rank(v)$, тогда $parent(v) = u$ \n    2. $rank(u) < rank(v)$, тогда $parent(u) = v$\n    3. $rank(u) = rank(v)$, тогда $parent(v) = u$ и $rank(u) += 1$\n6. Если в некий список рёбер было добавлено $V-1$ ребро, где $V$ - количество вершин, то выходим из цикла",
-      "styleAttributes": {},
-      "x": 640,
-      "y": 94,
-      "width": 740,
-      "height": 440
-    },
-    {
-      "id": "d787f403d9f5df1a",
-      "type": "text",
-      "text": "#Форда-Фалкерсона (улучшенный Эдмондса-Карпа)\n1. $maxFlow = 0$\n2. Ищем путь от вершины $s$ - истока к вершине $t$ - сток с помощью BFS. \n3. На найденном пути находим минимальную пропускную способность $c_{min}$\n4. Для каждого ребра $(u, v)$ этого пути уменьшаем пропускную способность на $c_{min}$, а для обратного ребра $(v, u)$ увеличиваем пропускную способность на $c_{min}$\n5. $maxFlow += c_{min}$\n6. Возвращаемся на шаг 2, если ещё есть пути от $s$ к $t$\n7. Результат: $maxFlow$",
-      "styleAttributes": {},
-      "x": 1480,
-      "y": -760,
-      "width": 740,
-      "height": 314
+      "width": 300,
+      "height": 380
     },
     {
       "id": "e80ac488fd562c91",
@@ -360,14 +171,203 @@
       "height": 416
     },
     {
-      "id": "664ccf587e992e4d",
+      "id": "c3364578f1554f53",
       "type": "text",
-      "text": "#power #степень\n\n```python\ndef power(a, n):\n    k = n\n    b = 1\n    c = a\n    while k > 0:\n        if k % 2 == 0:\n            k /= 2\n            c *= c\n        else:\n            k -= 1\n            b *= c\n    return b\n```",
+      "text": "```python\nvisited = [0] * V\ndef dfs(graph: list[list[int]], u):\n    visited[u] = 1\n    for v in graph[u]:\n        if not visited[v]:\n            dfs(v)\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -930,
+      "y": -420,
+      "width": 620,
+      "height": 180
+    },
+    {
+      "id": "3db0bec6568d80c9",
+      "type": "text",
+      "text": "#Кана \n1. Создаём список, где указываем для каждой вершины количество входящих рёбер \n2. Если количество входящих рёбер равно 0, добавить в очередь\n3. Взять вершину из очереди и пометить как посещённую\n4. Для всех смежных вершин уменьшить количество входящих рёбер на 1\n5. Добавить в очередь вершину, если количество входящих рёбер равно 0\n6. Пока очередь не пуста снова с шага 3 \n",
+      "styleAttributes": {
+        "border": null
+      },
+      "x": -180,
+      "y": -760,
+      "width": 740,
+      "height": 276
+    },
+    {
+      "id": "db2fed752149b8ef",
+      "type": "text",
+      "text": "#DFS\n1. Выбираем любую вершину из еще не пройденных, обозначим ее как $u$\n2. Запускаем процедуру $dfs(u)$\n     1. Помечаем вершину $u$ как пройденную\n     2. Для каждой не пройденной смежной с $u$ вершиной (назовем ее $v$) запускаем $dfs(v)$\n3. Повторяем шаги 1 и 2, пока все вершины не окажутся пройденными.",
+      "styleAttributes": {
+        "textAlign": null,
+        "border": null
+      },
+      "x": -960,
+      "y": -760,
+      "width": 680,
+      "height": 276
+    },
+    {
+      "id": "5c2dab23a7054246",
+      "type": "text",
+      "text": "```python\ndef Kana(V: int, graph: list[list[int]]):\n    incoming_nodes = [0] * V\n    queue = []\n    \n    for u in range(V):\n        for v in graph[u]:\n            incoming_nodes[v] += 1\n    \n    for u in range(V):\n        if incoming_nodes[u] == 0:\n            queue.append(u)\n            \n    topological_sort = []\n    while queue:\n        u = queue.pop(0)\n        topological_sort.append(u)\n        for v in graph[u]:\n            incoming_nodes[v] -= 1\n            if incoming_nodes[v] == 0:\n                queue.append(v)\n    if len(topological_sort) != V:\n        return \"Graph has a cycle\"\n    return topological_sort\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -53,
+      "y": -420,
+      "width": 487,
+      "height": 580
+    },
+    {
+      "id": "d787f403d9f5df1a",
+      "type": "text",
+      "text": "#Форда-Фалкерсона (улучшенный Эдмондса-Карпа)\n1. $maxFlow = 0$\n2. Ищем путь от вершины $s$ - истока к вершине $t$ - сток с помощью BFS. \n3. На найденном пути находим минимальную пропускную способность $c_{min}$\n4. Для каждого ребра $(u, v)$ этого пути уменьшаем пропускную способность на $c_{min}$, а для обратного ребра $(v, u)$ увеличиваем пропускную способность на $c_{min}$\n5. $maxFlow += c_{min}$\n6. Возвращаемся на шаг 2, если ещё есть пути от $s$ к $t$\n7. Результат: $maxFlow$",
       "styleAttributes": {},
-      "x": -1620,
+      "x": 1480,
+      "y": -760,
+      "width": 740,
+      "height": 314
+    },
+    {
+      "id": "29c8e781da9d0066",
+      "type": "text",
+      "text": "```python\ndef FloidaWarshalla(V, graph):\n    dist = [[float(\"inf\")] * V for _ in range(V)]\n    for u in range(V):\n        for v, w in graph[u]:\n            dist[u][v] = w\n    for u in range(V):\n        dist[u][u] = 0\n      \n    for k in range(V):\n        for i in range(V):\n            for j in range(V):\n                dist[i][j] = min(dist[i][j],dist[i][k] + dist[k][j])\n    return dist\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -149,
+      "y": 1200,
+      "width": 680,
+      "height": 340
+    },
+    {
+      "id": "f00449285d370807",
+      "type": "text",
+      "text": "```python\ndef BellmanaForda(V: int, graph: list[list[int]], start: int):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    used = [0] * V\n      \n    for _ in range(V - 1):\n        u = min(range(V), key=lambda x: (used[x], dist[x]))\n        used[u] = 1\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                dist[v] = dist[u] + w\n        \n    for u in range(V):\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                return \"Graph has negative cycle\"\n    return dist\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -990,
+      "y": 1050,
+      "width": 760,
+      "height": 440
+    },
+    {
+      "id": "8fd4637d227ce31e",
+      "type": "text",
+      "text": "```python\ndef Forda_Falkersona(s, t, V, graph):\n    flow = [[0] * V for _ in range(V)]\n    for u in range(V):\n        for v, f in graph[u]:\n            if flow[v][u] != f:\n                flow[u][v] = f\n\n    maxFlow = 0\n  \n    def BFS(s, t, path):\n        queue = [s]\n        visited = [0] * V\n        while queue:\n            u = queue.pop(0)\n            visited[u] = 1\n            for v, value in enumerate(flow[u]):\n                if not visited[v] and value > 0:\n                    queue.append(v)\n                    path[v] = u\n                    if v == t:\n                    return True\n        return False\n        \n    path = [-1] * V\n    while BFS(s, t, path):\n        minFlow = float(\"inf\")\n        v = t\n        while v != s:\n            minFlow = min(minFlow, flow[path[v]][v])\n            v = path[v]\n        v = t\n        while v != s:\n            flow[path[v]][v] -= minFlow\n            flow[v][path[v]] += minFlow\n            v = path[v]\n        \n        maxFlow += minFlow\n  \nreturn maxFlow\n```",
+      "styleAttributes": {},
+      "x": 1490,
+      "y": -356,
+      "width": 720,
+      "height": 890
+    },
+    {
+      "id": "27fa3d25f8517b75",
+      "type": "text",
+      "text": "```python\ndef Prima(V, graph):\n    keys = [float(\"inf\")] * V\n    mst = [0] * V\n    parent = [None] * V\n    keys[0] = 0\n    parent[0] = -1\n    for _ in range(V):\n        u = min(range(V), key=lambda x: (mst[x], keys[x]))\n        mst[u] = 1\n        for v, w in graph[u]:\n            if not mst[v] and keys[v] > w:\n                keys[v] = w\n                parent[v] = u\n    return parent, sum(keys)\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": 690,
+      "y": -330,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "id": "fe8caee8c34c0eff",
+      "type": "text",
+      "text": "#Прима\n1. Создаём список:\n    1. Ключей, который изначально для каждой вершины равен $∞$, кроме стартовой вершины, у которой ключ равен $0$.\n    2. Список включённых в $MST$ вершин (по сути список из 0)\n    3. Список $parent$, который изначально для каждой вершины равен $-1$\n2. Берём вершину $u$, которая не включена в $MST$, такую, что $keys(u)$  минимальна\n3. Перебираем смежные с ней вершины $v$ и  $w$ вес ребра $u,v$ \n4. Если $keys(v) > w$, то $keys(v) = w$ и $parent(v) = u$\n5. Повторяем с шага 2, пока все вершины не добавлены в $MST$",
+      "styleAttributes": {},
+      "x": 640,
+      "y": -760,
+      "width": 740,
+      "height": 360
+    },
+    {
+      "id": "dafa1ddee9d5264c",
+      "type": "text",
+      "text": "#Краскала\n1. Сортируем рёбра в порядке возрастания их весов.\n2. Создаём список $parent$ (представителей), где изначально каждая вершина является представителем самой себя. Также создаём список $rank$, изначально ранг каждой вершины равен 1.\n3. Берём ребро из отсортированного списка $(u, v, w)$. \n4. Ищем представителей у $u$ и $v$.\n    1. Если представитель один и тот же, то переходим к шагу 3, пропуская это ребро\n    2. Если представители разные, выполняем объединение (шаг 5)\n5. Объединение: \n    1. $rank(u) > rank(v)$, тогда $parent(v) = u$ \n    2. $rank(u) < rank(v)$, тогда $parent(u) = v$\n    3. $rank(u) = rank(v)$, тогда $parent(v) = u$ и $rank(u) += 1$\n6. Если в некий список рёбер было добавлено $V-1$ ребро, где $V$ - количество вершин, то выходим из цикла",
+      "styleAttributes": {},
+      "x": 640,
+      "y": 94,
+      "width": 740,
+      "height": 440
+    },
+    {
+      "id": "1341fbfd2e9b586e",
+      "type": "text",
+      "text": "#BFS\n1. Создадим массив $dist$ расстояний. Изначально $dist[s]=0$ (поскольку расстояний от вершины до самой себя равно $0$) и $dist[v]=∞$ для $v≠s$.\n2. Создадим очередь $q$. Изначально в $q$ добавим вершину $s$.\n3. Пока очередь $q$ не пуста, делаем следующее:\n    1. Извлекаем вершину $v$ из очереди.\n    2. Рассматриваем все рёбра $(v,u)∈E$, то есть те, которые выходят из вершины $v$ Для каждого такого ребра пытаемся сделать релаксацию: если $dist[v]+1<dist[u]$, то мы делаем присвоение $dist[u]=dist[v]+1$ и добавляем вершину $u$ в очередь.",
+      "styleAttributes": {},
+      "x": -960,
+      "y": -200,
+      "width": 680,
+      "height": 320
+    },
+    {
+      "id": "2a7126f35a501b45",
+      "type": "text",
+      "text": "#Беллмана-Форда\n1. Инициализация: всем вершинам присваивается предполагаемое расстояние $dist[v]=∞$, кроме вершины-источника, для которой $dist(u)=0$.\n2. Релаксация множества рёбер $E$\n    1. Для каждого ребра $e=(v,z)∈E$ вычисляется новое предполагаемое расстояние $new_dist(z)=dist(v)+w(e)$.\n    2. Если $new_dist(z)<dist(z)$, то происходит присваивание $dist(z)=new_dist(z)$ (релаксация ребра $e$).\n3. Алгоритм производит релаксацию всех рёбер графа до тех пор, пока на очередной итерации происходит релаксация хотя бы одного ребра.\n4. **Критерий наличия достижимого цикла отрицательного веса**: если после $n-1$ фазы мы выполним ещё одну фазу, и на ней произойдёт хотя бы одна релаксация, то граф содержит цикл отрицательного веса, достижимый из $v$; в противном случае, такого цикла нет.",
+      "styleAttributes": {},
+      "x": -950,
+      "y": 570,
+      "width": 680,
+      "height": 420
+    },
+    {
+      "id": "d31603f3949ce6eb",
+      "type": "text",
+      "text": "```python\ndef BFS(V: int, graph: list[list[int]], start: int = 0):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    queue = [start]\n    visited = [0] * V\n    while queue:\n        u = queue.pop(0)\n        visited[u] = 1\n        for v in graph[u]:\n            if not visited[v] and dist[u] + 1 < dist[v]:\n                dist[v] = dist[u] + 1\n                queue.append(v)\n    return dist\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -920,
+      "y": 174,
+      "width": 600,
+      "height": 360
+    },
+    {
+      "id": "adae0d9707b15dd3",
+      "type": "text",
+      "text": "```python\ndef Deikstra(V: int, graph: list[list[int]], start: int):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    used = [0] * V\n      \n    for _ in range(V):\n        u = min(range(V), key=lambda x: (used[x], dist[x]))\n        used[u] = 1\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                dist[v] = dist[u] + w\n    return dist\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -120,
+      "y": 560,
+      "width": 623,
+      "height": 340
+    },
+    {
+      "id": "d68ad71144f9f8a8",
+      "type": "text",
+      "text": "#Дейкстры\n1. Создать массив $dist$ расстояний. Изначально $dist[s]=0$ и $dist[v]=∞$ для $v≠s$.\n2. Создать булев массив $used$, $used[v]=0$ для всех вершин $v$ — в нём мы будем отмечать, совершалась ли релаксация из вершины.\n3. Пока существует вершина $v$ такая, что $used[v]=0$ и $dist[v]≠∞$, притом, если таких вершин несколько, то $v$ — вершина с минимальным $dist[v]$, делать следующее:\n    1. Пометить, что мы совершали релаксацию из вершины $v$, то есть присвоить $used[v]=1$.\n    2. Рассматриваем все рёбра $(v,u)∈E$. Для каждого ребра пытаемся сделать релаксацию: если $dist[v]+w(v,u)<dist[u]$, присвоить $dist[u]=dist[v]+w(v,u)$.",
+      "styleAttributes": {},
+      "x": -180,
+      "y": 180,
+      "width": 740,
+      "height": 320
+    },
+    {
+      "id": "5218b071aa2ef482",
+      "type": "text",
+      "text": "```python\ndef Kraskala(V, graph):\n    edges = []\n    for u in range(V)\n        for v, w in graph[u]:\n            edges.append((w, u, v))\n    edges.sort()\n    parent = [i for i in range(V)]\n    rank = [1] * V\n  \n    summa = 0\n    mst = 0\n    for w, u, v in edges:\n        parent_u = find_parent(u, parent)\n        parent_v = find_parent(v, parent)\n        if parent_u != parent_v:\n            union(parent_u, parent_v, parent, rank)\n            summa += w\n            mst += 1\n            if mst == V - 1:\n                break\n    return summa\n    \ndef find_parent(u, parent):\n    if u == parent[u]:\n        return u\n    parent[u] = find_parent(parent[u], parent)\n    return parent[u]\n    \ndef union(self, u, v, parent, rank):\n    if rank[u] > rank[v]:\n        parent[v] = u\n    elif rank[u] < rank[v]:\n        parent[u] = v\n    else:\n        parent[v] = u\n        rank[u] += 1\n```",
+      "styleAttributes": {},
+      "x": 610,
       "y": 600,
-      "width": 300,
-      "height": 380
+      "width": 800,
+      "height": 840
+    },
+    {
+      "id": "a55ca236bd51926b",
+      "type": "text",
+      "text": "#Флойда-Уоршелла\n1. Создаём матрицу кратчайших расстояний между всеми вершинами $dist$\n2. Перебираем все вершины в трёх вложенных циклах $k, i, j$ соответствено\n3. $dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])$ - Если расстояние от $i$ до $j$ через вершину $k$ меньше чем расстояние в матрице, то заменяем",
+      "styleAttributes": {},
+      "x": -179,
+      "y": 960,
+      "width": 740,
+      "height": 180
     }
   ],
   "edges": [
