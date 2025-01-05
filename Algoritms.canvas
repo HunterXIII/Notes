@@ -208,16 +208,24 @@
       "height": 276
     },
     {
-      "id": "5c2dab23a7054246",
+      "id": "fe8caee8c34c0eff",
       "type": "text",
-      "text": "```python\ndef Kana(V: int, graph: list[list[int]]):\n    incoming_nodes = [0] * V\n    queue = []\n    \n    for u in range(V):\n        for v in graph[u]:\n            incoming_nodes[v] += 1\n    \n    for u in range(V):\n        if incoming_nodes[u] == 0:\n            queue.append(u)\n            \n    topological_sort = []\n    while queue:\n        u = queue.pop(0)\n        topological_sort.append(u)\n        for v in graph[u]:\n            incoming_nodes[v] -= 1\n            if incoming_nodes[v] == 0:\n                queue.append(v)\n    if len(topological_sort) != V:\n        return \"Graph has a cycle\"\n    return topological_sort\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -53,
-      "y": -420,
-      "width": 487,
-      "height": 580
+      "text": "#Прима\n1. Создаём список:\n    1. Ключей, который изначально для каждой вершины равен $∞$, кроме стартовой вершины, у которой ключ равен $0$.\n    2. Список включённых в $MST$ вершин (по сути список из 0)\n    3. Список $parent$, который изначально для каждой вершины равен $-1$\n2. Берём вершину $u$, которая не включена в $MST$, такую, что $keys(u)$  минимальна\n3. Перебираем смежные с ней вершины $v$ и  $w$ вес ребра $u,v$ \n4. Если $keys(v) > w$, то $keys(v) = w$ и $parent(v) = u$\n5. Повторяем с шага 2, пока все вершины не добавлены в $MST$",
+      "styleAttributes": {},
+      "x": 640,
+      "y": -760,
+      "width": 740,
+      "height": 360
+    },
+    {
+      "id": "1341fbfd2e9b586e",
+      "type": "text",
+      "text": "#BFS\n1. Создадим массив $dist$ расстояний. Изначально $dist[s]=0$ (поскольку расстояний от вершины до самой себя равно $0$) и $dist[v]=∞$ для $v≠s$.\n2. Создадим очередь $q$. Изначально в $q$ добавим вершину $s$.\n3. Пока очередь $q$ не пуста, делаем следующее:\n    1. Извлекаем вершину $v$ из очереди.\n    2. Рассматриваем все рёбра $(v,u)∈E$, то есть те, которые выходят из вершины $v$ Для каждого такого ребра пытаемся сделать релаксацию: если $dist[v]+1<dist[u]$, то мы делаем присвоение $dist[u]=dist[v]+1$ и добавляем вершину $u$ в очередь.",
+      "styleAttributes": {},
+      "x": -960,
+      "y": -200,
+      "width": 680,
+      "height": 320
     },
     {
       "id": "d787f403d9f5df1a",
@@ -276,16 +284,6 @@
       "height": 360
     },
     {
-      "id": "fe8caee8c34c0eff",
-      "type": "text",
-      "text": "#Прима\n1. Создаём список:\n    1. Ключей, который изначально для каждой вершины равен $∞$, кроме стартовой вершины, у которой ключ равен $0$.\n    2. Список включённых в $MST$ вершин (по сути список из 0)\n    3. Список $parent$, который изначально для каждой вершины равен $-1$\n2. Берём вершину $u$, которая не включена в $MST$, такую, что $keys(u)$  минимальна\n3. Перебираем смежные с ней вершины $v$ и  $w$ вес ребра $u,v$ \n4. Если $keys(v) > w$, то $keys(v) = w$ и $parent(v) = u$\n5. Повторяем с шага 2, пока все вершины не добавлены в $MST$",
-      "styleAttributes": {},
-      "x": 640,
-      "y": -760,
-      "width": 740,
-      "height": 360
-    },
-    {
       "id": "dafa1ddee9d5264c",
       "type": "text",
       "text": "#Краскала\n1. Сортируем рёбра в порядке возрастания их весов.\n2. Создаём список $parent$ (представителей), где изначально каждая вершина является представителем самой себя. Также создаём список $rank$, изначально ранг каждой вершины равен 1.\n3. Берём ребро из отсортированного списка $(u, v, w)$. \n4. Ищем представителей у $u$ и $v$.\n    1. Если представитель один и тот же, то переходим к шагу 3, пропуская это ребро\n    2. Если представители разные, выполняем объединение (шаг 5)\n5. Объединение: \n    1. $rank(u) > rank(v)$, тогда $parent(v) = u$ \n    2. $rank(u) < rank(v)$, тогда $parent(u) = v$\n    3. $rank(u) = rank(v)$, тогда $parent(v) = u$ и $rank(u) += 1$\n6. Если в некий список рёбер было добавлено $V-1$ ребро, где $V$ - количество вершин, то выходим из цикла",
@@ -294,16 +292,6 @@
       "y": 94,
       "width": 740,
       "height": 440
-    },
-    {
-      "id": "1341fbfd2e9b586e",
-      "type": "text",
-      "text": "#BFS\n1. Создадим массив $dist$ расстояний. Изначально $dist[s]=0$ (поскольку расстояний от вершины до самой себя равно $0$) и $dist[v]=∞$ для $v≠s$.\n2. Создадим очередь $q$. Изначально в $q$ добавим вершину $s$.\n3. Пока очередь $q$ не пуста, делаем следующее:\n    1. Извлекаем вершину $v$ из очереди.\n    2. Рассматриваем все рёбра $(v,u)∈E$, то есть те, которые выходят из вершины $v$ Для каждого такого ребра пытаемся сделать релаксацию: если $dist[v]+1<dist[u]$, то мы делаем присвоение $dist[u]=dist[v]+1$ и добавляем вершину $u$ в очередь.",
-      "styleAttributes": {},
-      "x": -960,
-      "y": -200,
-      "width": 680,
-      "height": 320
     },
     {
       "id": "2a7126f35a501b45",
@@ -318,7 +306,7 @@
     {
       "id": "d31603f3949ce6eb",
       "type": "text",
-      "text": "```python\ndef BFS(V: int, graph: list[list[int]], start: int = 0):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    queue = [start]\n    visited = [0] * V\n    while queue:\n        u = queue.pop(0)\n        visited[u] = 1\n        for v in graph[u]:\n            if not visited[v] and dist[u] + 1 < dist[v]:\n                dist[v] = dist[u] + 1\n                queue.append(v)\n    return dist\n```",
+      "text": "```python\ndef BFS(V: int, graph: list[list[int]], start: int = 0):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    queue = [start]\n\n    while queue:\n        u = queue.pop(0)\n\n        for v in graph[u]:\n            if dist[u] + 1 < dist[v]:\n                dist[v] = dist[u] + 1\n                queue.append(v)\n    return dist\n```",
       "styleAttributes": {
         "border": "dotted"
       },
@@ -326,6 +314,16 @@
       "y": 174,
       "width": 600,
       "height": 360
+    },
+    {
+      "id": "a55ca236bd51926b",
+      "type": "text",
+      "text": "#Флойда-Уоршелла\n1. Создаём матрицу кратчайших расстояний между всеми вершинами $dist$\n2. Перебираем все вершины в трёх вложенных циклах $k, i, j$ соответствено\n3. $dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])$ - Если расстояние от $i$ до $j$ через вершину $k$ меньше чем расстояние в матрице, то заменяем",
+      "styleAttributes": {},
+      "x": -179,
+      "y": 960,
+      "width": 740,
+      "height": 180
     },
     {
       "id": "adae0d9707b15dd3",
@@ -360,14 +358,16 @@
       "height": 840
     },
     {
-      "id": "a55ca236bd51926b",
+      "id": "5c2dab23a7054246",
       "type": "text",
-      "text": "#Флойда-Уоршелла\n1. Создаём матрицу кратчайших расстояний между всеми вершинами $dist$\n2. Перебираем все вершины в трёх вложенных циклах $k, i, j$ соответствено\n3. $dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])$ - Если расстояние от $i$ до $j$ через вершину $k$ меньше чем расстояние в матрице, то заменяем",
-      "styleAttributes": {},
-      "x": -179,
-      "y": 960,
-      "width": 740,
-      "height": 180
+      "text": "```python\ndef Kana(V: int, graph: list[list[int]]):\n    count = [0] * V # количество входящих в вершину рёбер\n    queue = []\n    \n    for u in range(V):\n        for v in graph[u]:\n            count[v] += 1\n    \n    for u in range(V):\n        if count[u] == 0:\n            queue.append(u)\n            \n    topological_sort = []\n    while queue:\n        u = queue.pop(0)\n        topological_sort.append(u)\n        for v in graph[u]:\n            count[v] -= 1\n            if count[v] == 0:\n                queue.append(v)\n    if len(topological_sort) != V:\n        return \"Graph has a cycle\"\n    return topological_sort\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -116,
+      "y": -440,
+      "width": 613,
+      "height": 580
     }
   ],
   "edges": [
