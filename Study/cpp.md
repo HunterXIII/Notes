@@ -394,3 +394,5 @@ stars[0].name = "sun";
 ```cpp
 Star* stars = (Star*) malloc(n * sizeof(Star));
 ```
+
+
