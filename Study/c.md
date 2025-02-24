@@ -134,3 +134,87 @@ int myMax(int, int);
 
 
 # Практика 4
+
+# Лекция 3
+gcc - драйвер компилятора
+
+## Указатели
+Указатель хранит адрес памяти
+Может быть указатель на:
+- Стек
+- Кучу
+- Статик
+- Функцию (сегмент кода)
+
+Тип функции определён типом её возвращаемого объекта и типами аргументов
+```C
+int func(int a, int b)
+```
+Эта функция имеет тип:
+```C
+int(int, int)
+```
+Указатель будет объявляться следующим образом:
+```C
+int (*pf) (int, int)
+```
+Скобки `(*pf)` обязательно 
+Указатель всегда 8 байт
+```C
+int func(int a, int b){
+    // ...
+}
+// ...
+int (*pf) (int, int);
+pf = func;
+// OR
+pf = &func
+// ...
+int res = pf(a, b);
+// OR
+int res = (*pf)(a, b);
+```
+Мы не можем переделать указатель одного типа на функцию на другой тип.
+
+### Для C++ про перегруженные функции
+```C++
+void func(int);
+void func(unsigned int);
+void func(char);
+
+void (*pf)(unsigned int) = func; // Определяет по типу указателя нужный вариант перегруженной функции
+```
+## Передача функции в виде аргумента
+```C
+void printHello() {
+    printf("Hello World");
+}
+
+void execute(void (*func)()) {
+    func();
+}
+
+int main() {
+    execute(printHello);
+    return 0;
+}
+```
+
+```C
+#include <stdio.h>
+
+void printHello(int a) {
+    printf("Hello World, %d\n", a);
+}
+
+void execute(void (*func)(int), int a) {
+    func(a);
+}
+
+int main() {
+    int x = 1;
+    execute(printHello, x);
+    return 0;
+}
+
+```
