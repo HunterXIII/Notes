@@ -1,0 +1,2 @@
+I use a Local Area Network (LAN) at home. It includes a router that connects different devices. Laptops and smartphones connect via Wi-Fi. Also TV are connected through Ethernet cable. The network is simple and efficient, ensuring reliable internet access. 
+My network solution is most like Solution 1. It is a simple network structure where devices such as computers and laptops are connected directly to the internet via a router. 
