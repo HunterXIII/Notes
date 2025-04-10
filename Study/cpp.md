@@ -396,3 +396,46 @@ Star* stars = (Star*) malloc(n * sizeof(Star));
 ```
 
 
+# СЕМЕСТР 4
+# Лекция 1
+**PMS** - Property Manager System  
+**ERP (Enterprise Resource Planning)** — это программная система для планирования ресурсов предприятия  
+## Классы
+Класс займёт память, когда будет созданы объекты
+### Модификаторы доступа
+- `public:` 
+- `private:` - по умолчанию
+```cpp
+class Guest {
+public:
+    std::string firstName; // свойства/поле
+    std::string secondName;
+    std::string phoneNUmber;
+private:
+
+};
+```
+
+## Область видимости
+При создании класса, появляется область видимости, к которой можно обращаться: `Guest::setFirstName`  
+
+# Практика 1
+```cpp
+for (int i = 0; i < guests.size(); i++) {
+    // code
+}
+
+for (auto guest : guests) {
+    // code
+}
+
+for (auto iter : guests.begin(); iter != guests.end(); iter ++) {
+    iter->showInfo();
+}
+```
+
+# Практика 2
+Список инициализации:
+```cpp
+DateTime (int sec) : seconds(sec) {};
+```
