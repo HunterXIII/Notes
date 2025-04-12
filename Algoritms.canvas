@@ -14,6 +14,19 @@
       "label": "Графы"
     },
     {
+      "id": "ea31490fdeb42ba5",
+      "type": "group",
+      "styleAttributes": {
+        "border": "dashed"
+      },
+      "x": -2580,
+      "y": 1720,
+      "width": 1460,
+      "height": 480,
+      "color": "6",
+      "label": "Z и Префикс функции"
+    },
+    {
       "id": "96083c703e44732c",
       "type": "group",
       "styleAttributes": {
@@ -38,19 +51,6 @@
       "height": 1040,
       "color": "5",
       "label": "Операции над большими числами"
-    },
-    {
-      "id": "ea31490fdeb42ba5",
-      "type": "group",
-      "styleAttributes": {
-        "border": "dashed"
-      },
-      "x": -2580,
-      "y": 1720,
-      "width": 1460,
-      "height": 480,
-      "color": "6",
-      "label": "Z и Префикс функции"
     },
     {
       "id": "d15f345f007343b1",
@@ -151,16 +151,6 @@
       "height": 251
     },
     {
-      "id": "76fe769a1b16aa9a",
-      "type": "text",
-      "text": "#prefix_trivial\n\n```python\ndef t4_32(s):\n    n = len(s)\n    pi = [0] * n\n    for i in range(n):\n        for k in range(1, i + 1):\n            for j in range(k):\n                if s[j] != s[i - k  + 1 + j]:\n                    break\n            else:\n                pi[i] = k\n    return pi\n```",
-      "styleAttributes": {},
-      "x": -1860,
-      "y": 1780,
-      "width": 687,
-      "height": 346
-    },
-    {
       "id": "51b4b1b620f1f6e6",
       "type": "text",
       "text": "#simple_multiplication #простое_умножение #умножение_на_цифру\n\n```python\ndef easy_mul(a: str, b: str):    \n    if len(a) < len(b):\n        a, b = b, a\n    res = [0] * len(a)\n    b = \"0\" * (len(a) - len(b)) + b\n    flag = 0\n    for i in range(len(a) - 1, -1, -1):\n        res[i] = int(a[i]) * int(b) + flag\n        flag = res[i] // 10\n        res[i] %= 10\n    if flag:\n        res = [flag] + res\n    return \"\".join(str(i) for i in res)\n```",
@@ -208,16 +198,6 @@
       "height": 276
     },
     {
-      "id": "fe8caee8c34c0eff",
-      "type": "text",
-      "text": "#Прима\n1. Создаём список:\n    1. Ключей, который изначально для каждой вершины равен $∞$, кроме стартовой вершины, у которой ключ равен $0$.\n    2. Список включённых в $MST$ вершин (по сути список из 0)\n    3. Список $parent$, который изначально для каждой вершины равен $-1$\n2. Берём вершину $u$, которая не включена в $MST$, такую, что $keys(u)$  минимальна\n3. Перебираем смежные с ней вершины $v$ и  $w$ вес ребра $u,v$ \n4. Если $keys(v) > w$, то $keys(v) = w$ и $parent(v) = u$\n5. Повторяем с шага 2, пока все вершины не добавлены в $MST$",
-      "styleAttributes": {},
-      "x": 640,
-      "y": -760,
-      "width": 740,
-      "height": 360
-    },
-    {
       "id": "1341fbfd2e9b586e",
       "type": "text",
       "text": "#BFS\n1. Создадим массив $dist$ расстояний. Изначально $dist[s]=0$ (поскольку расстояний от вершины до самой себя равно $0$) и $dist[v]=∞$ для $v≠s$.\n2. Создадим очередь $q$. Изначально в $q$ добавим вершину $s$.\n3. Пока очередь $q$ не пуста, делаем следующее:\n    1. Извлекаем вершину $v$ из очереди.\n    2. Рассматриваем все рёбра $(v,u)∈E$, то есть те, которые выходят из вершины $v$ Для каждого такого ребра пытаемся сделать релаксацию: если $dist[v]+1<dist[u]$, то мы делаем присвоение $dist[u]=dist[v]+1$ и добавляем вершину $u$ в очередь.",
@@ -226,6 +206,28 @@
       "y": -200,
       "width": 680,
       "height": 320
+    },
+    {
+      "id": "d31603f3949ce6eb",
+      "type": "text",
+      "text": "```python\ndef BFS(V: int, graph: list[list[int]], start: int = 0):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    queue = [start]\n\n    while queue:\n        u = queue.pop(0)\n\n        for v in graph[u]:\n            if dist[u] + 1 < dist[v]:\n                dist[v] = dist[u] + 1\n                queue.append(v)\n    return dist\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -920,
+      "y": 174,
+      "width": 600,
+      "height": 360
+    },
+    {
+      "id": "fe8caee8c34c0eff",
+      "type": "text",
+      "text": "#Прима\n1. Создаём список:\n    1. Ключей, который изначально для каждой вершины равен $∞$, кроме стартовой вершины, у которой ключ равен $0$.\n    2. Список включённых в $MST$ вершин (по сути список из 0)\n    3. Список $parent$, который изначально для каждой вершины равен $-1$\n2. Берём вершину $u$, которая не включена в $MST$, такую, что $keys(u)$  минимальна\n3. Перебираем смежные с ней вершины $v$ и  $w$ вес ребра $u,v$ \n4. Если $keys(v) > w$, то $keys(v) = w$ и $parent(v) = u$\n5. Повторяем с шага 2, пока все вершины не добавлены в $MST$",
+      "styleAttributes": {},
+      "x": 640,
+      "y": -760,
+      "width": 740,
+      "height": 360
     },
     {
       "id": "d787f403d9f5df1a",
@@ -258,18 +260,6 @@
       "y": -330,
       "width": 640,
       "height": 360
-    },
-    {
-      "id": "5c2dab23a7054246",
-      "type": "text",
-      "text": "```python\ndef Kana(V: int, graph: list[list[int]]):\n    count = [0] * V # количество входящих в вершину рёбер\n    queue = []\n    \n    for u in range(V):\n        for v in graph[u]:\n            count[v] += 1\n    \n    for u in range(V):\n        if count[u] == 0:\n            queue.append(u)\n            \n    topological_sort = []\n    while queue:\n        u = queue.pop(0)\n        topological_sort.append(u)\n        for v in graph[u]:\n            count[v] -= 1\n            if count[v] == 0:\n                queue.append(v)\n    if len(topological_sort) != V:\n        return \"Graph has a cycle\"\n    return topological_sort\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -116,
-      "y": -440,
-      "width": 613,
-      "height": 580
     },
     {
       "id": "29c8e781da9d0066",
@@ -316,16 +306,6 @@
       "height": 180
     },
     {
-      "id": "5218b071aa2ef482",
-      "type": "text",
-      "text": "```python\ndef Kraskala(V, graph):\n    edges = []\n    for u in range(V)\n        for v, w in graph[u]:\n            edges.append((w, u, v))\n    edges.sort()\n    parent = [i for i in range(V)]\n    rank = [1] * V\n  \n    summa = 0\n    mst = 0\n    for w, u, v in edges:\n        parent_u = find_parent(u, parent)\n        parent_v = find_parent(v, parent)\n        if parent_u != parent_v:\n            union(parent_u, parent_v, parent, rank)\n            summa += w\n            mst += 1\n            if mst == V - 1:\n                break\n    return summa\n    \ndef find_parent(u, parent):\n    if u == parent[u]:\n        return u\n    parent[u] = find_parent(parent[u], parent)\n    return parent[u]\n    \ndef union(self, u, v, parent, rank):\n    if rank[u] > rank[v]:\n        parent[v] = u\n    elif rank[u] < rank[v]:\n        parent[u] = v\n    else:\n        parent[v] = u\n        rank[u] += 1\n```",
-      "styleAttributes": {},
-      "x": 610,
-      "y": 600,
-      "width": 800,
-      "height": 840
-    },
-    {
       "id": "adae0d9707b15dd3",
       "type": "text",
       "text": "```python\ndef Deikstra(V: int, graph: list[list[int]], start: int):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    used = [0] * V\n      \n    for _ in range(V):\n        u = min(range(V), key=lambda x: (used[x], dist[x]))\n        used[u] = 1\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                dist[v] = dist[u] + w\n    return dist\n```",
@@ -338,6 +318,38 @@
       "height": 340
     },
     {
+      "id": "d68ad71144f9f8a8",
+      "type": "text",
+      "text": "#Дейкстры\n1. Создать массив $dist$ расстояний. Изначально $dist[s]=0$ и $dist[v]=∞$ для $v≠s$.\n2. Создать булев массив $used$, $used[v]=0$ для всех вершин $v$ — в нём мы будем отмечать, совершалась ли релаксация из вершины.\n3. Пока существует вершина $v$ такая, что $used[v]=0$ и $dist[v]≠∞$, притом, если таких вершин несколько, то $v$ — вершина с минимальным $dist[v]$, делать следующее:\n    1. Пометить, что мы совершали релаксацию из вершины $v$, то есть присвоить $used[v]=1$.\n    2. Рассматриваем все рёбра $(v,u)∈E$. Для каждого ребра пытаемся сделать релаксацию: если $dist[v]+w(v,u)<dist[u]$, присвоить $dist[u]=dist[v]+w(v,u)$.",
+      "styleAttributes": {},
+      "x": -180,
+      "y": 180,
+      "width": 740,
+      "height": 320
+    },
+    {
+      "id": "5c2dab23a7054246",
+      "type": "text",
+      "text": "```python\ndef Kana(V: int, graph: list[list[int]]):\n    count = [0] * V # количество входящих в вершину рёбер\n    queue = []\n    \n    for u in range(V):\n        for v in graph[u]:\n            count[v] += 1\n    \n    for u in range(V):\n        if count[u] == 0:\n            queue.append(u)\n            \n    topological_sort = []\n    while queue:\n        u = queue.pop(0)\n        topological_sort.append(u)\n        for v in graph[u]:\n            count[v] -= 1\n            if count[v] == 0:\n                queue.append(v)\n    if len(topological_sort) != V:\n        return \"Graph has a cycle\"\n    return topological_sort\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": -116,
+      "y": -440,
+      "width": 613,
+      "height": 580
+    },
+    {
+      "id": "5218b071aa2ef482",
+      "type": "text",
+      "text": "```python\ndef Kraskala(V, graph):\n    edges = []\n    for u in range(V)\n        for v, w in graph[u]:\n            edges.append((w, u, v))\n    edges.sort()\n    parent = [i for i in range(V)]\n    rank = [1] * V\n  \n    summa = 0\n    mst = 0\n    for w, u, v in edges:\n        parent_u = find_parent(u, parent)\n        parent_v = find_parent(v, parent)\n        if parent_u != parent_v:\n            union(parent_u, parent_v, parent, rank)\n            summa += w\n            mst += 1\n            if mst == V - 1:\n                break\n    return summa\n    \ndef find_parent(u, parent):\n    if u == parent[u]:\n        return u\n    parent[u] = find_parent(parent[u], parent)\n    return parent[u]\n    \ndef union(self, u, v, parent, rank):\n    if rank[u] > rank[v]:\n        parent[v] = u\n    elif rank[u] < rank[v]:\n        parent[u] = v\n    else:\n        parent[v] = u\n        rank[u] += 1\n```",
+      "styleAttributes": {},
+      "x": 610,
+      "y": 600,
+      "width": 800,
+      "height": 840
+    },
+    {
       "id": "dafa1ddee9d5264c",
       "type": "text",
       "text": "#Краскала\n1. Сортируем рёбра в порядке возрастания их весов.\n2. Создаём список $parent$ (представителей), где изначально каждая вершина является представителем самой себя. Также создаём список $rank$, изначально ранг каждой вершины равен 1.\n3. Берём ребро из отсортированного списка $(u, v, w)$. \n4. Ищем представителей у $u$ и $v$.\n    1. Если представитель один и тот же, то переходим к шагу 3, пропуская это ребро\n    2. Если представители разные, выполняем объединение (шаг 5)\n5. Объединение: \n    1. $rank(u) > rank(v)$, тогда $parent(v) = u$ \n    2. $rank(u) < rank(v)$, тогда $parent(u) = v$\n    3. $rank(u) = rank(v)$, тогда $parent(v) = u$ и $rank(u) += 1$\n6. Если в некий список рёбер было добавлено $V-1$ ребро, где $V$ - количество вершин, то выходим из цикла",
@@ -348,26 +360,14 @@
       "height": 440
     },
     {
-      "id": "d31603f3949ce6eb",
+      "id": "76fe769a1b16aa9a",
       "type": "text",
-      "text": "```python\ndef BFS(V: int, graph: list[list[int]], start: int = 0):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    queue = [start]\n\n    while queue:\n        u = queue.pop(0)\n\n        for v in graph[u]:\n            if dist[u] + 1 < dist[v]:\n                dist[v] = dist[u] + 1\n                queue.append(v)\n    return dist\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -920,
-      "y": 174,
-      "width": 600,
-      "height": 360
-    },
-    {
-      "id": "d68ad71144f9f8a8",
-      "type": "text",
-      "text": "#Дейкстры\n1. Создать массив $dist$ расстояний. Изначально $dist[s]=0$ и $dist[v]=∞$ для $v≠s$.\n2. Создать булев массив $used$, $used[v]=0$ для всех вершин $v$ — в нём мы будем отмечать, совершалась ли релаксация из вершины.\n3. Пока существует вершина $v$ такая, что $used[v]=0$ и $dist[v]≠∞$, притом, если таких вершин несколько, то $v$ — вершина с минимальным $dist[v]$, делать следующее:\n    1. Пометить, что мы совершали релаксацию из вершины $v$, то есть присвоить $used[v]=1$.\n    2. Рассматриваем все рёбра $(v,u)∈E$. Для каждого ребра пытаемся сделать релаксацию: если $dist[v]+w(v,u)<dist[u]$, присвоить $dist[u]=dist[v]+w(v,u)$.",
+      "text": "#prefix_trivial\n\n```python\ndef t4_32(s):\n    n = len(s)\n    pi = [0] * n\n    for i in range(n):\n        for k in range(1, i + 1):\n            for j in range(k):\n                if s[j] != s[i - k  + 1 + j]:\n                    break\n            else:\n                pi[i] = k\n    return pi\n```",
       "styleAttributes": {},
-      "x": -180,
-      "y": 180,
-      "width": 740,
-      "height": 320
+      "x": -1860,
+      "y": 1780,
+      "width": 687,
+      "height": 346
     }
   ],
   "edges": [
