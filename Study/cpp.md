@@ -439,3 +439,172 @@ for (auto iter : guests.begin(); iter != guests.end(); iter ++) {
 ```cpp
 DateTime (int sec) : seconds(sec) {};
 ```
+
+
+# Лекция 2
+## Наследование
+```cpp
+
+class Bookingable { // родительский
+private:
+    int id; 
+    std::vector<TimeRange> booking;
+    double tariff;
+public:
+    Bookingable(double tariff) {
+        // конструктор в род. классе
+    }
+}
+
+class ConferenceHall : public Bookingable {
+private:
+    std::string name;
+    int capacity;
+public:
+
+}
+
+class Room : public Bookingable {
+private:
+    int number;
+    int capacity;
+public:
+    Room(int n, double tariff) : Bookingable(double tariff), number(n) {
+        
+    };
+}
+
+```
+### Модификаторы наследования:
+- `public` - доступен для внешнего доступа
+- `private` - private от любого внешнего доступа
+- `protected` - private для внешнего доступа, кроме дочерних классов
+---
+Конструкторы сами по себе не наследуются, но вызываются
+
+---
+Через `new` можно выделять память
+```cpp
+new int marks[count];
+```
+## Конструктор копирования:
+```cpp
+Student(const Student& other) {
+    name = other.name;
+    age = other.age;
+    courseCount = other.courseCount;
+    addMarks = new int [courseCount];
+    for (int i = 0; i < courseCount; i++) {
+        addMarks[i] = other.addMarks[i];
+    }
+}
+```
+
+# Лекция 3
+## Виртуальные функции
+```cpp
+class Pet {
+private:
+protected:
+    std::string name;
+    int age;
+public:
+    Pet(std::string name, int age) : name(name), age(age) {};
+    virtual void say() = 0;
+};
+
+class Dog : public Pet {
+private:
+public:
+    Dog(std::string name, int age) : Pet(name, age) {};
+    void say() override {
+        std::cout << "- Woof, - sayd " << name << std::endl;
+    }
+    ~Dog() = default;
+};
+
+class Cat : public Pet {
+private:
+    int livecount = 9;
+public:
+    Cat(std::string name, int age) : Pet(name, age) {};
+    void say() override {
+        std::cout << "- Meow, - sayd " << name << std::endl;
+    }
+    ~Cat() = default;
+};
+
+class Chesyrskiy : public Cat {
+public:
+    Chesyrskiy() : Cat("Chesyrskiy", 1000) {};
+    void say() override {
+        Cat::say();
+        std::cout << "- Hello, - sayd :)" << std::endl;
+    }
+};
+```
+- `virtual` - указывает, что это виртуальный/абстрактный метод
+- `override` - указывает, что мы переопределяем виртуальный метод
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+
+class Pet {
+private:
+protected:
+    std::string name;
+    int age;
+public:
+    Pet(std::string name, int age) : name(name), age(age) {};
+    virtual void say() {
+        std::cout << "???" << std::endl;
+    }
+};
+
+class Dog : public Pet {
+private:
+public:
+    Dog(std::string name, int age) : Pet(name, age) {};
+    void say() override {
+        std::cout << "- Woof, - sayd " << name << std::endl;
+    }
+    ~Dog() = default;
+};
+
+
+class Cat : public Pet {
+private:
+    int livecount = 9;
+public:
+    Cat(std::string name, int age) : Pet(name, age) {};
+    void say() override {
+        std::cout << "- Meow, - sayd " << name << std::endl;
+    }
+    ~Cat() = default;
+};
+
+class Chesyrskiy : public Cat {
+public:
+    Chesyrskiy() : Cat("Chesyrskiy", 1000) {};
+    void say() override {
+        Cat::say();
+        std::cout << "- Hello, - sayd :)" << std::endl;
+    }
+};
+
+int main() {
+    std::vector <Pet *> zoo;
+    Pet *dog = new Dog("Albert", 1);
+    Pet *cat = new Cat("Gav", 2);
+    Pet *chesyrskiy = new Chesyrskiy;
+
+    zoo.push_back(dog);
+    zoo.push_back(cat);
+    zoo.push_back(chesyrskiy);
+
+    for (Pet *pet : zoo) {
+        pet->say(); // (*pet).say()
+    }    
+}
+```
