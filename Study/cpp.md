@@ -610,3 +610,36 @@ int main() {
 ```
 # Дружественные функции
 `friend` - объявляет дружественные функции для класса, то есть функции, в которых будут доступны приватные поля объекта.
+# Функтор
+```cpp
+MyVector v(100);
+cout << v(4, 23); // сумма элементов между аргументами
+
+
+class MyVector {
+    ...
+    int operator()(int start, int end) {
+        //if (start < 0 or start > size...)
+        int sum = 0;
+        for (int i = start, i < end; i++) {
+            sum += arr[i];
+        }
+        return sum;
+    }
+
+    int operator()() {
+        std::cout << "Address: " << this << std::endl;
+    }
+    ...
+}
+```
+# Приведение типов класса
+```cpp
+class Fraction {
+private:
+    long long x, y;
+public:
+    operator double() {
+    }
+}
+```
