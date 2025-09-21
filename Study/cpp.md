@@ -643,3 +643,80 @@ public:
     }
 }
 ```
+
+# 3 КУРС
+# Практика 1
+## Задание 1
+```cpp
+#include <iostream>
+
+int main() {
+    std::string name;
+    int age;
+    std::cout << "Введите ваше имя: ";
+    std::cin >> name;
+    std::cout << "Введите ваш возраст: ";
+    std::cin >> age;
+    std::cout << "Привет, " << name << "! Тебе " << age << " лет." << std::endl;  
+}
+```
+## Задание 2
+```cpp
+#include <iostream>
+
+
+namespace Math {
+    int add(int a, int b) {
+        return a + b;
+    }
+}
+
+namespace Text {
+    void print(const std::string& s) {
+        std::cout << s << std::endl;
+    }
+}
+
+using Math::add;
+using Text::print;
+
+int main() {
+    int a = 5, b = 3, c = 10, d = 7;
+    std::cout << "Результат: ";
+    Text::print(std::to_string(Math::add(a, b)));
+    std::cout << "Второй результат: ";
+    print(std::to_string(add(c, d)));
+}
+```
+## Задание 3
+`x, *p1, p2, p3, *p3 - изменять нельзя; y, p1, *p2 - можно`
+## Задание 4
+```cpp
+#include <iostream>
+
+void swap(int& a, int& b) {
+    int temp;
+    temp = a;
+    a = b;
+    b = temp;
+}
+
+void printValue(const int& val) {
+    std::cout << "Значение: " << val << std::endl;
+}
+
+int main() {
+    int a = 5, b = 10;
+    std::cout << "До swap: a = " << a << ", b = " << b << std::endl;
+    swap(a, b);
+    std::cout << "После swap: a = " << a << ", b = " << b << std::endl;
+    int c = 42;
+    printValue(c);
+    printValue(100);
+
+}
+```
+## Задание 5
+`Потому что ссылка - это лишь другое имя уже существующей переменной, она должна сразу указывать на какой-то объект`
+
+# Лекция 1
