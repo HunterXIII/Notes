@@ -414,3 +414,146 @@ int main() {
 ## nullptr
 > Специальное значение, представляющее нулевой указатель, безопаснее `NULL`
 
+# Шаблоны
+Способ написания кода, который параметризован типами. Компилятор генерирует конкретный код для каждого используемого типа
+
+## Шаблоны функций
+```cpp
+template<typename T> 
+возвращаемый тип имя_функции(T переменная) {
+    // тело функции
+}
+```
+```cpp
+template<typename T> // или typename T
+T max(T a, T b) {
+    return (a > b) ? a : b; // Предполагаем, что для T определён оператор >
+}
+
+template<typename T, typename U>
+void printPair(T first, U second) {
+    std::cout << first << ", " << second << std::endl;
+}
+```
+## Шаблоны классов
+```cpp
+template<typename T> // или template<class T>
+class ClassName {
+    // тело класса, использующее T
+};
+```
+```cpp
+#include <iostream>
+template<typename T> 
+class SimpleSmartPointer
+}
+    // Оператор доступа к члену
+    T* operator->() const {
+        return ptr;
+    }
+    // Оператор получения указателя
+    T* get() const {
+        return ptr;
+    }
+    
+    // Оператор присваивания (упрощённо, не учитываем самоприсваивание и move)
+    SimpleSmartPointer& operator=(SimpleSmartPointer other) {
+        std::swap(ptr, other.ptr);
+        return *this;
+    }
+    
+    // Запрет копирования (для уникальности, как unique_ptr)
+    SimpleSmartPointer(const SimpleSmartPointer&) = delete;
+    SimpleSmartPointer& operator=(const SimpleSmartPointer&) = delete;
+    // Move-конструктор (упрощённо)
+    SimpleSmartPointer(SimpleSmartPointer&& other) noexcept : ptr(other.ptr) {
+        other.ptr = nullptr;
+    }
+    // Move-оператор присваивания (упрощённо)
+    SimpleSmartPointer& operator=(SimpleSmartPointer&& other) noexcept {
+    if (this != &other) {
+        delete ptr;
+        ptr = other.ptr;
+        other.ptr = nullptr;
+    }
+        return *this;
+    }
+};
+int main() {
+{
+    SimpleSmartPointer<int> smartInt(new int(42));
+    std::cout << "Value: " << *smartInt << std::endl; // Используем operator*
+    SimpleSmartPointer<double> smartDouble(new double(3.14159));
+    std::cout << "Value: " << *smartDouble << std::endl;
+} // Объекты уничтожаются, вызывается деструктор, память освобождается
+return 0;
+
+}
+```
+
+# Многопоточность
+**Процесс** - отдельно запущенная программа, имеет собственное виртуальное адресное пространство  
+**Поток** - "легковесный" процесс внутри основного процесса. Потоки разделяют память внутри одного процесса, но у каждого есть свой стек и регистры.
+## `std::thread`
+```cpp
+#include <iostream>
+#include <thread>
+
+void hello() {
+    std::cout << "Hello from thread" << std::this_thread::get_id() << std::endl;
+}
+
+int main() {
+    std::thread t1(hello); // Создаём поток, который будет выполнять функцию hello
+    std::thread t2(hello); // Создаём второй поток, выполняющий ту же функцию
+    std::cout << "Hello from main thread " << std::this_thread::get_id() << std::endl;
+    t1.join(); // Ожидаем завершения потока t1
+    t2.join(); // Ожидаем завершения потока t2
+    // Теперь main может завершиться, зная, что все потоки закончили работу
+    return 0;
+}
+```
+
+## `join()` vs `detach()`
+- `join()`: поток, вызывающий `join` (например, `main`), _ждет_, пока поток, на котором вызывается `join`, не завершится.
+- `detach()`: поток "отсоединяется". Он продолжает работать независимо, и его ресурсы автоматически освобождаются при завершении. Главный поток не обязан ждать его.
+- **Важно:** Любой `std::thread` должен быть либо `join()`-нут, либо `detach()`-нут перед тем, как его деструктор вызовется (иначе программа аварийно завершится).
+## **`std::this_thread::sleep_for()`** 
+Приостановка выполнения потока на заданное время
+```cpp
+#include <chrono>
+
+void sleepy_hello() {
+    std::cout << "Sleepy thread " << std::this_thread::get_id() << " starts.\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000)); // Спит 1 секунду
+    std::cout << "Sleepy thread " << std::this_thread::get_id() << " wakes up.\n";
+}
+```
+## `std::mutex()`
+Объект синхронизации, используемый для защиты общих данных от одновременного доступа несколькими потоками
+```cpp
+#include <iostream>
+#include <thread>
+#include <mutex>
+
+int shared_counter = 0; // Общий ресурс
+std::mutex counter_mutex; // Мьютекс для защиты counter
+void increment() {
+    for (int i = 0; i < 1000; ++i) {
+        counter_mutex.lock(); // Блокируем доступ
+        ++shared_counter; // Изменяем общий ресурс
+        counter_mutex.unlock(); // Разблокируем доступ
+        // Лучше использовать lock_guard (RAII для мьютексов):
+        // std::lock_guard<std::mutex> lock(counter_mutex);
+        // ++shared_counter; // lock_guard автоматически разблокирует в деструкторе
+    }
+}
+int main() {
+    std::thread t1(increment);
+    std::thread t2(increment);
+    t1.join();
+    t2.join();
+    std::cout << "Final counter value: " << shared_counter << std::endl; // Должно быть 2000
+    return 0;
+}
+```hello world 123 hello test 456 123 hello
