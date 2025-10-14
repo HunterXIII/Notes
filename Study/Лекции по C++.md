@@ -556,4 +556,4 @@ int main() {
     std::cout << "Final counter value: " << shared_counter << std::endl; // Должно быть 2000
     return 0;
 }
-```hello world 123 hello test 456 123 hello
+```hello world 123 hello test 456 123 hello1
