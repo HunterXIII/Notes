@@ -131,26 +131,6 @@
       "height": 720
     },
     {
-      "id": "1341fbfd2e9b586e",
-      "type": "text",
-      "text": "#BFS\n1. Создадим массив $dist$ расстояний. Изначально $dist[s]=0$ (поскольку расстояний от вершины до самой себя равно $0$) и $dist[v]=∞$ для $v≠s$.\n2. Создадим очередь $q$. Изначально в $q$ добавим вершину $s$.\n3. Пока очередь $q$ не пуста, делаем следующее:\n    1. Извлекаем вершину $v$ из очереди.\n    2. Рассматриваем все рёбра $(v,u)∈E$, то есть те, которые выходят из вершины $v$ Для каждого такого ребра пытаемся сделать релаксацию: если $dist[v]+1<dist[u]$, то мы делаем присвоение $dist[u]=dist[v]+1$ и добавляем вершину $u$ в очередь.",
-      "styleAttributes": {},
-      "x": -960,
-      "y": -200,
-      "width": 680,
-      "height": 320
-    },
-    {
-      "id": "51b4b1b620f1f6e6",
-      "type": "text",
-      "text": "#simple_multiplication #простое_умножение #умножение_на_цифру\n\n```python\ndef easy_mul(a: str, b: str):    \n    if len(a) < len(b):\n        a, b = b, a\n    res = [0] * len(a)\n    b = \"0\" * (len(a) - len(b)) + b\n    flag = 0\n    for i in range(len(a) - 1, -1, -1):\n        res[i] = int(a[i]) * int(b) + flag\n        flag = res[i] // 10\n        res[i] %= 10\n    if flag:\n        res = [flag] + res\n    return \"\".join(str(i) for i in res)\n```",
-      "styleAttributes": {},
-      "x": -2485,
-      "y": 1080,
-      "width": 591,
-      "height": 416
-    },
-    {
       "id": "3db0bec6568d80c9",
       "type": "text",
       "text": "#Кана \n1. Создаём список, где указываем для каждой вершины количество входящих рёбер \n2. Если количество входящих рёбер равно 0, добавить в очередь\n3. Взять вершину из очереди и пометить как посещённую\n4. Для всех смежных вершин уменьшить количество входящих рёбер на 1\n5. Добавить в очередь вершину, если количество входящих рёбер равно 0\n6. Пока очередь не пуста снова с шага 3 \n",
@@ -188,6 +168,16 @@
       "height": 180
     },
     {
+      "id": "51b4b1b620f1f6e6",
+      "type": "text",
+      "text": "#simple_multiplication #простое_умножение #умножение_на_цифру\n\n```python\ndef easy_mul(a: str, b: str):    \n    if len(a) < len(b):\n        a, b = b, a\n    res = [0] * len(a)\n    b = \"0\" * (len(a) - len(b)) + b\n    flag = 0\n    for i in range(len(a) - 1, -1, -1):\n        res[i] = int(a[i]) * int(b) + flag\n        flag = res[i] // 10\n        res[i] %= 10\n    if flag:\n        res = [flag] + res\n    return \"\".join(str(i) for i in res)\n```",
+      "styleAttributes": {},
+      "x": -2485,
+      "y": 1080,
+      "width": 591,
+      "height": 416
+    },
+    {
       "id": "e80ac488fd562c91",
       "type": "text",
       "text": "#addition #сложение\n\n```python\ndef add(a: str, b: str):\n    if len(a) < len(b):\n        a, b = b, a\n    res = [0] * len(a)\n    b = \"0\" * (len(a) - len(b)) + b\n    flag = 0\n    for i in range(len(b) - 1, -1, -1):\n        res[i] = int(a[i]) + int(b[i]) + flag\n        flag = res[i] // 10\n        res[i] %= 10\n    if flag:\n        res[0] %= 10\n        res = [flag] + res    \n    return \"\".join(str(i) for i in res)\n```",
@@ -196,6 +186,28 @@
       "y": 1080,
       "width": 491,
       "height": 416
+    },
+    {
+      "id": "d787f403d9f5df1a",
+      "type": "text",
+      "text": "#Форда-Фалкерсона (улучшенный Эдмондса-Карпа)\n1. $maxFlow = 0$\n2. Ищем путь от вершины $s$ - истока к вершине $t$ - сток с помощью BFS. \n3. На найденном пути находим минимальную пропускную способность $c_{min}$\n4. Для каждого ребра $(u, v)$ этого пути уменьшаем пропускную способность на $c_{min}$, а для обратного ребра $(v, u)$ увеличиваем пропускную способность на $c_{min}$\n5. $maxFlow += c_{min}$\n6. Возвращаемся на шаг 2, если ещё есть пути от $s$ к $t$\n7. Результат: $maxFlow$",
+      "styleAttributes": {},
+      "x": 1480,
+      "y": -760,
+      "width": 740,
+      "height": 314
+    },
+    {
+      "id": "27fa3d25f8517b75",
+      "type": "text",
+      "text": "```python\ndef Prima(V, graph):\n    keys = [float(\"inf\")] * V\n    mst = [0] * V\n    parent = [None] * V\n    keys[0] = 0\n    parent[0] = -1\n    for _ in range(V):\n        u = min(range(V), key=lambda x: (mst[x], keys[x]))\n        mst[u] = 1\n        for v, w in graph[u]:\n            if not mst[v] and keys[v] > w:\n                keys[v] = w\n                parent[v] = u\n    return parent, sum(keys)\n```",
+      "styleAttributes": {
+        "border": "dotted"
+      },
+      "x": 690,
+      "y": -330,
+      "width": 640,
+      "height": 360
     },
     {
       "id": "a8a42e4c1322fd93",
@@ -216,6 +228,16 @@
       "y": 1780,
       "width": 687,
       "height": 346
+    },
+    {
+      "id": "1341fbfd2e9b586e",
+      "type": "text",
+      "text": "#BFS\n1. Создадим массив $dist$ расстояний. Изначально $dist[s]=0$ (поскольку расстояний от вершины до самой себя равно $0$) и $dist[v]=∞$ для $v≠s$.\n2. Создадим очередь $q$. Изначально в $q$ добавим вершину $s$.\n3. Пока очередь $q$ не пуста, делаем следующее:\n    1. Извлекаем вершину $v$ из очереди.\n    2. Рассматриваем все рёбра $(v,u)∈E$, то есть те, которые выходят из вершины $v$ Для каждого такого ребра пытаемся сделать релаксацию: если $dist[v]+1<dist[u]$, то мы делаем присвоение $dist[u]=dist[v]+1$ и добавляем вершину $u$ в очередь.",
+      "styleAttributes": {},
+      "x": -960,
+      "y": -200,
+      "width": 680,
+      "height": 320
     },
     {
       "id": "8fd4637d227ce31e",
@@ -252,16 +274,6 @@
       "height": 340
     },
     {
-      "id": "a55ca236bd51926b",
-      "type": "text",
-      "text": "#Флойда-Уоршелла\n1. Создаём матрицу кратчайших расстояний между всеми вершинами $dist$\n2. Перебираем все вершины в трёх вложенных циклах $k, i, j$ соответствено\n3. $dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])$ - Если расстояние от $i$ до $j$ через вершину $k$ меньше чем расстояние в матрице, то заменяем",
-      "styleAttributes": {},
-      "x": -179,
-      "y": 960,
-      "width": 740,
-      "height": 180
-    },
-    {
       "id": "adae0d9707b15dd3",
       "type": "text",
       "text": "```python\ndef Deikstra(V: int, graph: list[list[int]], start: int):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    used = [0] * V\n      \n    for _ in range(V):\n        u = min(range(V), key=lambda x: (used[x], dist[x]))\n        used[u] = 1\n        for v, w in graph[u]:\n            if dist[v] > dist[u] + w:\n                dist[v] = dist[u] + w\n    return dist\n```",
@@ -284,26 +296,26 @@
       "height": 360
     },
     {
-      "id": "d787f403d9f5df1a",
+      "id": "d31603f3949ce6eb",
       "type": "text",
-      "text": "#Форда-Фалкерсона (улучшенный Эдмондса-Карпа)\n1. $maxFlow = 0$\n2. Ищем путь от вершины $s$ - истока к вершине $t$ - сток с помощью BFS. \n3. На найденном пути находим минимальную пропускную способность $c_{min}$\n4. Для каждого ребра $(u, v)$ этого пути уменьшаем пропускную способность на $c_{min}$, а для обратного ребра $(v, u)$ увеличиваем пропускную способность на $c_{min}$\n5. $maxFlow += c_{min}$\n6. Возвращаемся на шаг 2, если ещё есть пути от $s$ к $t$\n7. Результат: $maxFlow$",
-      "styleAttributes": {},
-      "x": 1480,
-      "y": -760,
-      "width": 740,
-      "height": 314
-    },
-    {
-      "id": "27fa3d25f8517b75",
-      "type": "text",
-      "text": "```python\ndef Prima(V, graph):\n    keys = [float(\"inf\")] * V\n    mst = [0] * V\n    parent = [None] * V\n    keys[0] = 0\n    parent[0] = -1\n    for _ in range(V):\n        u = min(range(V), key=lambda x: (mst[x], keys[x]))\n        mst[u] = 1\n        for v, w in graph[u]:\n            if not mst[v] and keys[v] > w:\n                keys[v] = w\n                parent[v] = u\n    return parent, sum(keys)\n```",
+      "text": "```python\ndef BFS(V: int, graph: list[list[int]], start: int = 0):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    queue = [start]\n\n    while queue:\n        u = queue.pop(0)\n\n        for v in graph[u]:\n            if dist[u] + 1 < dist[v]:\n                dist[v] = dist[u] + 1\n                queue.append(v)\n    return dist\n```",
       "styleAttributes": {
         "border": "dotted"
       },
-      "x": 690,
-      "y": -330,
-      "width": 640,
+      "x": -920,
+      "y": 174,
+      "width": 600,
       "height": 360
+    },
+    {
+      "id": "a55ca236bd51926b",
+      "type": "text",
+      "text": "#Флойда-Уоршелла\n1. Создаём матрицу кратчайших расстояний между всеми вершинами $dist$\n2. Перебираем все вершины в трёх вложенных циклах $k, i, j$ соответствено\n3. $dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])$ - Если расстояние от $i$ до $j$ через вершину $k$ меньше чем расстояние в матрице, то заменяем",
+      "styleAttributes": {},
+      "x": -179,
+      "y": 960,
+      "width": 740,
+      "height": 180
     },
     {
       "id": "dafa1ddee9d5264c",
@@ -316,16 +328,14 @@
       "height": 440
     },
     {
-      "id": "d31603f3949ce6eb",
+      "id": "2a7126f35a501b45",
       "type": "text",
-      "text": "```python\ndef BFS(V: int, graph: list[list[int]], start: int = 0):\n    dist = [float(\"inf\")] * V\n    dist[start] = 0\n    queue = [start]\n\n    while queue:\n        u = queue.pop(0)\n\n        for v in graph[u]:\n            if dist[u] + 1 < dist[v]:\n                dist[v] = dist[u] + 1\n                queue.append(v)\n    return dist\n```",
-      "styleAttributes": {
-        "border": "dotted"
-      },
-      "x": -920,
-      "y": 174,
-      "width": 600,
-      "height": 360
+      "text": "#Беллмана-Форда\n1. Инициализация: всем вершинам присваивается предполагаемое расстояние $dist[v]=∞$, кроме вершины-источника, для которой $dist(u)=0$.\n2. Релаксация множества рёбер $E$\n    1. Для каждого ребра $e=(v,z)∈E$ вычисляется новое предполагаемое расстояние $new_dist(z)=dist(v)+w(e)$.\n    2. Если $new_dist(z)<dist(z)$, то происходит присваивание $dist(z)=new_dist(z)$ (релаксация ребра $e$).\n3. Алгоритм производит релаксацию всех рёбер графа до тех пор, пока на очередной итерации происходит релаксация хотя бы одного ребра.\n4. **Критерий наличия достижимого цикла отрицательного веса**: если после $n-1$ фазы мы выполним ещё одну фазу, и на ней произойдёт хотя бы одна релаксация, то граф содержит цикл отрицательного веса, достижимый из $v$; в противном случае, такого цикла нет.",
+      "styleAttributes": {},
+      "x": -950,
+      "y": 570,
+      "width": 680,
+      "height": 420
     },
     {
       "id": "5218b071aa2ef482",
@@ -358,16 +368,6 @@
       "y": 1050,
       "width": 760,
       "height": 440
-    },
-    {
-      "id": "2a7126f35a501b45",
-      "type": "text",
-      "text": "#Беллмана-Форда\n1. Инициализация: всем вершинам присваивается предполагаемое расстояние $dist[v]=∞$, кроме вершины-источника, для которой $dist(u)=0$.\n2. Релаксация множества рёбер $E$\n    1. Для каждого ребра $e=(v,z)∈E$ вычисляется новое предполагаемое расстояние $new_dist(z)=dist(v)+w(e)$.\n    2. Если $new_dist(z)<dist(z)$, то происходит присваивание $dist(z)=new_dist(z)$ (релаксация ребра $e$).\n3. Алгоритм производит релаксацию всех рёбер графа до тех пор, пока на очередной итерации происходит релаксация хотя бы одного ребра.\n4. **Критерий наличия достижимого цикла отрицательного веса**: если после $n-1$ фазы мы выполним ещё одну фазу, и на ней произойдёт хотя бы одна релаксация, то граф содержит цикл отрицательного веса, достижимый из $v$; в противном случае, такого цикла нет.",
-      "styleAttributes": {},
-      "x": -950,
-      "y": 570,
-      "width": 680,
-      "height": 420
     }
   ],
   "edges": [
