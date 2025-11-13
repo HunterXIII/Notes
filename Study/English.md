@@ -82,17 +82,30 @@ HTTP cookies are built specifically for web browsers to track, personalize and s
 
 ---
 # Speaking 
-1. What are brute force attack?
-    A brute force attack is a trial and error method used by attackers to gain authorized access to systems, networks or encrypted data by systematically trying all possible combinations of passwords, encryption keys or credentials until the correct one is found
-2. 
-3. What are types of brute force attacks? Describe them briefly
+1. **What are brute force attack?**
+    
+    A brute force attack is a trial and error method used by attackers to gain authorized access to systems, networks or encrypted data 
+    
+2. **How do brute force attacks work?**
+    
+    They work by systematically trying all possible combinations of passwords, encryption keys or credentials until the correct one is found
+    
+3. **What are types of brute force attacks? Describe them briefly**
     
     - Traditional brute force attacks tries all possible password combinations without any shortcuts or optimization
     
     - Dictionary attacks an advanced method that uses a predefined list od common passwords or phrases, based on research of the target to guess th correct one
     
-    - Hybrid brute force attacks combines traditional brute force with dictionary attacks using common words from the dictionary and trying various combinations until the correct one is found
+    - Hybrid brute force attacks combines traditional brute force with dictionary attacks using common words from the dictionary and trying various combinations
     
     - Credential stuffing uses previously stolen username, passwords from a one service to attempt access to other accounts
     
     - Reverse brute force attacks. Here the attackers starts with a known password an tries various usernames until a match is found.
+    
+4. **What protective measures should be taken ageinst the brute force attack?**
+    
+    - You have to use strong passwords of at least fiften characters combining random letters, numbers and symbols. Never reuse passwords across.
+    - If you are a website administrator, use a plugin to limit the number of login attempts. Set up alerts suspicious login attempts from unknown ip addresses
+    - Use multi-factor authentication. This adds an extra layer of protection 
+    - Implement account lockouts after several failed login attempts with progressive delays
+    - For servers disabled root accesss through ssh
