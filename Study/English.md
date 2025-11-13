@@ -80,3 +80,7 @@ HTTP cookies are built specifically for web browsers to track, personalize and s
 - Find the Settings, Privacy section — sometimes listed under Tools, Internet Options, or Advanced.
 - Follow the prompts on the available options to manage or remove cookies.  
 
+---
+# Speaking 
+1. What are brute force attack?
+A brute force attack is a trial and error method used by attackers to gain authorized access to systems, networksm or encrypted data by systematically trying all possible combinations of passwords, encryption keys or credentials until the correct one is found
