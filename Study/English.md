@@ -88,24 +88,23 @@ HTTP cookies are built specifically for web browsers to track, personalize and s
     
 2. **How do brute force attacks work?**
     
-    They work by systematically trying all possible combinations of passwords, encryption keys or credentials until the correct one is found
+    It works by systematically trying all possible combinations of passwords, encryption keys or credentials until the correct one is found
     
 3. **What are types of brute force attacks? Describe them briefly**
     
-    - Traditional brute force attacks tries all possible password combinations without any shortcuts or optimization
+    - Traditional brute force attacks try all possible password combinations without any shortcuts or optimization
     
-    - Dictionary attacks an advanced method that uses a predefined list od common passwords or phrases, based on research of the target to guess th correct one
+    - Dictionary attack is an advanced method that uses a predefined list of common passwords or phrases
     
-    - Hybrid brute force attacks combines traditional brute force with dictionary attacks using common words from the dictionary and trying various combinations
+    - Hybrid brute force attacks combine traditional brute force with dictionary attacks using common words from the dictionary and trying various combinations
     
     - Credential stuffing uses previously stolen username, passwords from a one service to attempt access to other accounts
     
-    - Reverse brute force attacks. Here the attackers starts with a known password an tries various usernames until a match is found.
+    - Reverse brute force attacks. Here the attackers starts with a known password and try various usernames until a match is found.
     
 4. **What protective measures should be taken ageinst the brute force attack?**
     
-    - You have to use strong passwords of at least fiften characters combining random letters, numbers and symbols. Never reuse passwords across.
-    - If you are a website administrator, use a plugin to limit the number of login attempts. Set up alerts suspicious login attempts from unknown ip addresses
+    - You have to use strong passwords of at least fifteen characters combining random letters, numbers and symbols. Never reuse passwords.
     - Use multi-factor authentication. This adds an extra layer of protection 
-    - Implement account lockouts after several failed login attempts with progressive delays
-    - For servers disabled root accesss through ssh
+    - If you are a website administrator, you can use a plugin to limit the number of login attempts and implement account lockouts after several failed login attempts with progressive delays
+    %% - For servers disabled root accesss through ssh %%
