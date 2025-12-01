@@ -155,3 +155,49 @@ func Map[T any](in []T, f func(T) T) []T
 - Тип-параметры в `[]` после имени функции/типа
 ### Обобщённый `Set[T]`
 `type Set[T comparable] map[T]struct{}`
+
+# Лекция 4
+## Тестирование 
+### Простой тест
+```go
+package mathx
+import "testing"
+
+func Sum(a, b int) int {return a + b}
+
+func TestSum(t *testing.T) {
+    got := Sum(2,3)
+    want := 5
+    if got  != want {
+        t.Fatalf("Sum(2,3)=%d want %d", got, want)
+    }
+}
+```
+### Табличные тесты
+```go
+func Inc(x int) int {return x+1}
+
+func TestInc(t *testing.T) {
+    cases := []struct {
+        name string
+        in, want int
+    }{
+        {"zero", 0, 1},
+        {"neg", -3, -2},
+        {"big", 41, 42},
+    }
+    
+    for _, tc := range cases {
+        t.Run(tc.name, func(t *testing.T) {
+            if got := Inc(tc.in); got != want {
+                t.Fatalf("Inc(%d)=%d want %d", tc.in, got, want)
+            }   
+        })
+    }
+}
+```
+## Бенчмарки
+- Оценить влияние изменений на производительность
+- Сравнивать варианты реализации
+- Найти лишние аллокации и узкие места  
+
