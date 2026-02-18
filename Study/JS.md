@@ -129,3 +129,50 @@ user.sayHi() // тут уже всё хорошо
 <mark style="background: #FF5582A6;">... (дописать)</mark>
 
 Стрелки не могут быть конструкторами
+
+## Замыкание
+
+```js
+function outer() {
+    let message = "Привет из замыкания";
+    
+    function inner() {
+        console.log(message); // функция запомнила окружение
+    }
+    
+    return inner;
+}
+
+const myFunction = outer();
+myFunction();
+```
+
+```js
+function createCounter() {
+    let count = 0;
+    
+    return function() {
+        count++;
+        console.log("Current: ", count);
+        return count;
+    }
+}
+
+const counter1 = createCounter();
+const counter2 = createCounter();
+counter1(); // 1
+counter1(); // 2
+counter1(); // 3
+
+counter2(); // 1
+counter2(); // 2
+```
+
+### Частичное применение (каррирование)
+Раскладываем, упрощаем функцию
+
+## Callback
+**Callback** - это функция, которая передаётся в другую функцию в качестве аргумента
+```js
+
+```
