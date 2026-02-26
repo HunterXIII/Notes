@@ -108,3 +108,26 @@ HTTP cookies are built specifically for web browsers to track, personalize and s
     - Use multi-factor authentication. This adds an extra layer of protection 
     - If you are a website administrator, you can use a plugin to limit the number of login attempts and implement account lockouts after several failed login attempts with progressive delays
     %% - For servers disabled root accesss through ssh %%
+
+# Speaking SDLC
+1. According to the article, what is the main purpose of the Software Development Life Cycle (SDLC)? In other words, what does it help development teams achieve?
+    
+    The main purpose of the Software Development Life Cycle (SDLC) is to help development teams design, build, and maintain software in a systematic and well-defined manner
+    It ensures that the software meets customer expectations deliver high-quality results
+
+2. The article lists six phases for SDLC and six phases for STLC. Name two phases that are part of STLC but are not part of the main SDLC phases listed. Briefly explain what happens in one of those STLC phases.
+    
+    Two phases that are part of STLC but not part of the main SDLC phases are: Test Planning and Test Closure
+    Test Closure is the final phase of STLC where the testing team creates a report with all test results. They compare actual and expected results to evaluate software quality.
+
+3. The article describes several SDLC models like Agile and Waterfall. Based on the description, what is a key difference in how work is organized between the Agile model and the Waterfall model?
+    
+    The key difference is that Agile organizes work into smaller tasks and iterations, delivering working software after each iteration. The Waterfall model follows a sequential process, where each phase must be completed and validated before moving to the next phase.
+
+4. How does the article explain the relationship between STLC and SDLC? Is STLC a replacement for SDLC, a part of it, or a completely separate process?
+    
+    STLC is an important and integral part of SDLC. But it only applies at the time of test phases
+
+5. The article mentions that STLC helps with the "Early Detection of Defects." Why is this considered an important benefit? What advantage does it give a project?
+    
+    This means that errors can be discovered and resolved before they evolve into more severe issues later on. This method addresses problems when they are less costly to fix, therefore saving both time and money.

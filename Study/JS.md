@@ -263,3 +263,59 @@ Object.defineProperties(user, {
 
 ### enumerable - видимость в циклах
 `enumerable: false` - не будет показываться в циклах
+
+# Лекция 4
+AbortController - встроенный объект в JS, который позволяет отменять асинхронные операции (особенно fetch-запросы) до их завершения
+```js
+const controller = new AbortController();
+const signal = controller.signal;
+
+signal.addEventListener('abort', () => {
+    console.log("Signal stopped");
+    console.log ("Reason: ", signal.reason) // underfined по умолчанию
+}); 
+
+signal.abort()
+// OR
+signal.abort(new Error("Test"))
+```
+
+## JSON
+- json.stringfy - из объекта в json
+- json.parse - из json в объект
+- json.toJSON - свои правила для stringfy
+
+## Promise
+**Promise** - объект, представляющий результат асинхронной операции, которая ещё не завершена, но будет завершена в будущем. "Промис" - контейнер для будущего значения
+- pending - ожидание
+- fulfield - завершилась?
+- rejected - произошла ошибка  
+  
+### then, catch, finally
+- `.then` - принимает и возвращает promise, операции над ним
+- `.catch` - обработка ошибок
+
+### Статические методы Promise
+`Promise.all()` - параллельное выполнение промисов (если хоть одна ошибка из них, то вылетаем в catch), возвращает массив результатов  
+  
+`Promise.race()` - гонка промисов, какой запрос придёт первый, тот и будет использоваться, если ошибка быстрее, то её и обрабатываем  
+  
+`Promise.any()` - вернёт первый положительный ответ  
+  
+## Fetch API
+Fetch API - современный интерфейс для выполнения HTTP-запросов, у него есть response:
+- response.status - код статусы
+- .ok - true, если успешные статусы
+- .headers - заголовки
+- .url - путь
+- .json - в формате json
+- .text - как текст
+- .blob - как бинарные данные  
+  
+> Видеть, например, прогресс можно только через старый вариант запросов
+
+## async/await
+`async function` - объявление асинхронной функции, которая всегда возвращает промис  
+  
+`await` - оператор, который приостанавливает выполнение асинхронной функции до разрешения промиса  
+  

@@ -203,3 +203,43 @@ func TestInc(t *testing.T) {
 
 # Семестр 2
 # Лекция 1
+
+
+# Практика 1
+
+# Практика 2
+`any` - любое значение
+- Для декодирования с `json` используется `json.NewDecoder(r io.Reader) *Decoder` а затем используем метод `Decode`:
+- Для ответа, то есть для кодирования в json - `json.NewEncoder(w io.Writer) *Encoder` и метод `Encode`
+```go
+mux.HandleFunc("POST /echo", func(w http.ResponseWriter, r *http.Request) {
+		var payload map[string]any
+		dec := json.NewDecoder(r.Body)
+		err := dec.Decode(&payload)
+		if err != nil {
+			w.Header().Set("Content-Type", "application/json")
+			err = json.NewEncoder(w).Encode(map[string]string{
+				"error": err.Error(),
+			})
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				fmt.Printf("failed to send JSON response ti client: %s\n", err)
+			}
+
+		}
+	})
+```
+
+также можно не через `map`, а через `struct` (**важно сделать именованные поля и экспортируемые**)
+```go
+err = json.NewEncoder(w).Encode(struct {
+    Err string
+}{
+    Err: err.Error(),
+})
+```
+
+Проверить тип ошибки:
+```go
+
+```
