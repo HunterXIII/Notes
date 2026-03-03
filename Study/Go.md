@@ -243,3 +243,83 @@ err = json.NewEncoder(w).Encode(struct {
 ```go
 
 ```
+
+# Лекция 2. Database
+```go
+func main {
+    db, err := db.Open("бд", "полльзователь:пароль@сеть(адрес:порт)/название_бд)
+    if err != nil {
+        fmt.Printf("Failed to connect: %s\n", err)
+        return
+    }
+    defer db.Close() // Откладываем закрытие БД, когда завершится функция main
+    
+    if err = db.Ping(); err != nil {
+        fmt.Printf("Failed to ping: %s\n", err)
+        return
+    }
+    
+    fmt.Printf("Succesfuly connected to database")
+    
+    ...
+    mux.Handle("GET /users/{id}", getUserHandler(db))
+    ...
+}
+```
+## Первый способ передачи db в handler func
+```go
+func getUserHandler(db *sql.DB) http.Handler {
+    return http.HandlerFunc(w http.ResponseWriter, *r http.Request) {
+        fmt.Printf("db is %v", db)
+    }
+}
+```
+## Получение одной строки из БД
+```go
+db.QueryRow("SELECT id, name, email FROM users WHERE id = ?", id).Scan(&user.Id, &user.Name, &user.Email)
+```
+- `QueryRow` - запрос к БД, чтобы получить одну строку
+- `Scan` - позиционно записываем полученные столбцы  
+## Получение нескольких записей из БД
+```go
+rows, err := db.Query("SELECT id, name, email FROM users")
+if err != nil {
+    ...
+}
+defer rows.Close() // обязательно
+
+```
+- `Query` - запрос для получение нескольких записей
+- `rows.Close()` - обязательно, потому что читает постепенно, как поток
+```go
+var users []User
+
+for rows.next() {
+    var user User
+    if err := rows.(&user.Id, &user.Name, &user.Email) {
+        ...
+    }
+    users = append(users, user)
+}
+```
+## Запись и обновление данных
+Для это существует `Exec`, один из возвращаемых аргументов - это `Result`.  
+У `Result` есть два метода: `LastInsertId()` - возвращает id последней записи, `RowsAffected()` - количество вставленных или изменённых строк, но не все драйвера это могут возвращать и т.д.
+## NULL
+Через указатель можно и `json:"name,omitempty"`
+## Prepare
+Безопасная и эффективная подготовка запроса
+```go
+stmt, err := db.Prepare("SELECT id, name, email FROM users where id = ?")
+defer stmt.Close()
+...
+stmt.QueryRow(id).Scan(...)
+```
+## Транзакции 
+```go
+tx, err := db.BeginTx()
+tx.ExecContext()
+tx.ExecContext()
+tx.Commit() 
+tx.Rollback()
+```
