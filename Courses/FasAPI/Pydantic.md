@@ -1,4 +1,4 @@
-Все модели наследуются от `BaseModel`
+`Все модели наследуются от `BaseModel`
 ```python
 from pydantic import BaseModel
 

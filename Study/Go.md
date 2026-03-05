@@ -247,7 +247,7 @@ err = json.NewEncoder(w).Encode(struct {
 # Лекция 2. Database
 ```go
 func main {
-    db, err := db.Open("бд", "полльзователь:пароль@сеть(адрес:порт)/название_бд)
+    db, err := sql.Open("бд", "полльзователь:пароль@сеть(адрес:порт)/название_бд)
     if err != nil {
         fmt.Printf("Failed to connect: %s\n", err)
         return
