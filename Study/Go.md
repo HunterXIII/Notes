@@ -244,7 +244,7 @@ err = json.NewEncoder(w).Encode(struct {
 
 ```
 
-# Лекция 2. Database
+# Лекция 3. Database
 ```go
 func main {
     db, err := sql.Open("бд", "полльзователь:пароль@сеть(адрес:порт)/название_бд)
@@ -322,4 +322,21 @@ tx.ExecContext()
 tx.ExecContext()
 tx.Commit() 
 tx.Rollback()
+```
+
+# Лекция 4. Авторизация
+## Claims
+- `sub` - id пользователя
+- `iat` - момент, в который был выдан токен
+- `exp` - время жизни токена
+```go
+claims := jwt.MapClaims{
+    "sub": strconv.FormatInt(user.Id, 10),
+    "exp": expiresAt.Unix()
+}
+
+token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+tokenString, err := token.SignedString(h.jwtSecret)
+
+
 ```
