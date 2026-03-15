@@ -340,3 +340,151 @@ tokenString, err := token.SignedString(h.jwtSecret)
 
 
 ```
+
+# Лекция 5. 
+- Параллельность - просто делаем параллельную работу
+- Конкурентность - ресурсы отдаются тому кому необходимы, и забираются, у кого простаиваются  
+  
+- **mutex (muteally exclusive)** - блокировка памяти пока занята другим процессом 
+
+## Конкурентность в Go
+`go l.Sort()` - `go` означает, что выполнение этой функции будет выполняться отдельно от основного потока, в отдельном воркере 
+### Каналы
+Отдельный тип данных, определяются двумя словами: `chan <type>`, где `type` - тип данных, которые будут передаваться по каналу. В канал может быть записано одно значение, следующее будет записано, только после того, когда первое прочитают. Буферизованный канал увеличивает количество значений, которые могут лежать в канале.
+```go
+ci := make(chan int)
+cj := make(chan int, 100) // Буфер
+```
+
+```go
+func (l list) Sort() {
+
+}
+
+func DoSomething() {
+
+}
+
+func main() {
+    c := make(chan int) // создание канала
+    
+    go func() {
+        l.Sort()
+        c <- 1 // Отправить сигнал в канал, value не имеет значение 
+    }
+    
+    DoSomething()
+
+    <- c // Ожидание конца сортировки, 
+}
+
+```
+
+`close(c)` - закрывает канал, тогда циклы по каналам перестанут быть бесконечными
+### Пример семафора
+```go
+const MaxRunningProcessing = 3
+
+type Request struct {}
+
+var sem = make(chan int, MaxRunningProcessing)
+
+func Serve(queue chan *Request) {
+    for r := range queue {
+        sem <- 1
+        go func() {
+            process(r)
+            <- sem
+        }()
+    } 
+}
+
+func process(r *Request) {}
+
+func main() {
+    queue := make(chan *Request)
+    
+    Serve(queue)
+    
+    queue <- &Request{}
+    queue <- &Request{}
+    queue <- &Request{}
+    queue <- &Request{}
+    queue <- &Request{}
+    queue <- &Request{}
+}
+```
+
+### Worker Pool
+```go
+const MaxOutstanding = 3
+
+func handle(queue chan *Request) {
+    for r := range queue {
+        process(r)
+    }
+}
+
+func Serve(clientRequests chan *Request, quit chan bool) {
+    for i := 0; i < MaxOutstanding; i++ {
+        go handle(clientRequests)
+    }
+    <- quit
+}
+
+func process(r *Request) {}
+
+func main() {
+    queue := make(chan *Request)
+    stop := make(chan bool)
+    
+    go Serve(queue, stop)
+    
+    queue <- &Request{}
+    queue <- &Request{}
+    queue <- &Request{}
+    queue <- &Request{}
+    queue <- &Request{}
+    queue <- &Request{}
+}
+```
+> Из канала может читать только один в момент времени
+
+## Параллельность
+Можно организовать, но +-
+
+## Race Condition
+```go
+func main() {
+    sum := 0
+    
+    for i := 0; i < 1000; i ++ {
+        go func() {
+            sum += i // Сразу несколько потоков записывают туда 
+        }()
+    }
+    
+    fmt.Println(sum) // каждый раз разное значение будет
+}
+```
+### mutex
+```go
+import "sync"
+
+func main() {
+    
+    m := sync.Mutex{}
+    sum := 0
+    
+    for i := 0; i < 1000; i ++ {
+        go func() {
+            m.Lock()
+            sum += i 
+            m.Unlock()
+        }()
+    }
+    
+    fmt.Println(sum) 
+}
+```
+
