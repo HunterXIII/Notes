@@ -488,3 +488,96 @@ func main() {
 }
 ```
 
+# Лекция 6
+Например, для завершения функции используется `context.Context`
+```go
+func worker(ctx context.Context, id int) {
+    for {
+        select {
+        case <-ctx.Done():
+            fmt.Printf("Worker %d stopping\n", id)
+            return
+        default:
+            fmt.Printf("Worker %d working\n")
+            time.Sleep(500 * time.Millisecond)
+        }
+    }
+}
+
+func main() {
+    ctx, cancel := context.WithCancel(context.Background())
+    
+    for i := 1; i <= 3; i++ {
+        go worker(ctx, i)
+    }
+    
+    time.Sleep(2 * time.Second)
+    
+    // Отмена из контекста - все worker получат сигнал
+    cancel()
+    
+    fmt.Println("All workers stopped")
+}
+
+```
+
+```go
+func worker(ctx context.Context, id int) {
+    for {
+        select {
+        case <-ctx.Done():
+            fmt.Printf("Worker %d stopping\n", id)
+            return
+        default:
+            fmt.Printf("Worker %d working\n")
+            time.Sleep(500 * time.Millisecond)
+        }
+    }
+}
+
+func main() {
+    ctx, cancel := context.WithTimeout(context.Background(), 2 * time.Second) // контекст закроет канал через 2 секунды
+    
+    // Но cancel все равно можно всегда вызвать
+    defer cancel()
+    
+    for i := 1; i <= 3; i++ {
+        go worker(ctx, i)
+    }
+    
+    time.Sleep(2 * time.Second)
+    
+    
+    fmt.Println("All workers stopped")
+}
+
+```
+Чтобы постоянно не передавать контекст в методах, просто передаём через конструктор
+> Если работает с библиотекой, функция которой требует контекст(а мы не знаем нужен ли он нам или нет там), то не передаём `nil`, а передаём `context.TODO()`
+
+## http
+Отдельно на каждый запрос http создаётся свой контекст (`r.Context()`)
+## Timeout
+Ставить таймауты на свои запросы к БД - хорошая практика (но они не должны быть взяты с потолка)
+
+## Правильно с каналами
+```go
+func StartWorker(ctx context.Context, in <-chan Job) {
+    go func() {
+        for {
+            select {
+            case <- ctx.Done():
+                return
+            case job, ok := <-in:
+                if !ok { return }
+                process(job)
+            }
+        }
+    }
+}
+```
+> Просто защита от *"утечки горутин"*, чтобы они не занимали память просто так
+
+## Выводы
+- Контекст просто даёт канал, который позволяет отменить горутину
+- Всегда передаётся первым аргументом
