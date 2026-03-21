@@ -581,3 +581,67 @@ func StartWorker(ctx context.Context, in <-chan Job) {
 ## Выводы
 - Контекст просто даёт канал, который позволяет отменить горутину
 - Всегда передаётся первым аргументом
+
+# Лекция 7
+Протофайлы - описывают протобафы, какие байты чем будут являться в сообщении
+```proto
+syntax = "proto3"
+
+message Note {
+    int64 id           = 1;
+    string name        = 2;
+    string description = 3;
+}
+```
+> не только для Go, но и для других ЯП
+
+## Для работы с gRPC
+```
+syntax = "proto3"
+
+message Note {
+    int64 id           = 1;
+    string name        = 2;
+    string description = 3;
+}
+
+message CreateNoteRequest {
+    string name = 1;
+    string description = 2;
+}
+
+message CreateNoteResponse {
+    id = 1;
+}
+
+message ListNotesRequest {}
+
+service NotesService {
+    rpc CreateNote(CreateNoteRequest) returns (CreateNoteResponse);
+    rpc ListNotes(ListNotesRequest) returns (stream Note);
+}
+```
+
+## example server
+```go
+func startgrpcserver() {
+    lis, err := net.Listen("tcp", ":9091")
+    if err != nil {
+        log.Fatal(err)
+    }
+    
+    srv := grpc.NewServer()
+    pb.RegisterNotesServiceServer(srv, &NotesServer{})
+}
+```
+
+```go
+func (s *NotesServer) GetNote(ctx context.Context, req *pb.GetNoteRequest) (*pb.GetNoteResponse, error) {
+    note, err := s.repo.GetByID(ctx, req.Id)
+    if errors.Is(err, sql.ErrNoRows) {
+        return nil, status.Error(codes.NotFound, "note not found")
+    }
+    
+    ...
+}
+```
