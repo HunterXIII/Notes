@@ -645,3 +645,86 @@ func (s *NotesServer) GetNote(ctx context.Context, req *pb.GetNoteRequest) (*pb.
     ...
 }
 ```
+
+# Лекция 8. Тестирование
+Виды тестов:
+- unit 
+- integration 
+- acceptance  
+  
+**TDD** - разработка через тестирование - сначала тесты, потом код  
+> Если к файлу добавить `_test`, то `go` автоматически понимает, что там тесты, например, `main_test.go`
+
+## Package testing - пакет для тестов
+Тестируемая функция:
+```go
+func hello() string {
+    return "Hello, world!"
+}
+```
+
+```go
+package main
+
+import "testing"
+
+func TestXxx(t *testing.T) { 
+    got := hello()
+    want := "Hello, World!"
+    
+    if got != want {
+        t.Errorf("got %q want %q", got, want)
+    }
+}
+```
+- Обязательно с большой буквы `Test` в названии
+`go test` - проверка для тестов  
+  
+"Документация" к тестам:
+```go
+func TestHello(t *testing.T) {
+    t.Run("Name or description of test", func(t *testing t) {
+        ...
+    })
+}
+```
+
+- `t.Helper()` - указывает, что это вспомогательная функция, ошибка тогда будет указывать не во внутрь функции, а внутри теста    
+
+### Table tests
+```go
+func TestValidate(t *testing.T) {
+    tests = []struct {
+        name string
+        req CreateUserRequest
+        wantErr bool
+    }{
+        {
+            name: "valid request",
+            req: CreateUserRequest{...}
+            wantErr: false
+        },
+        ...,
+        ...,
+        ...,
+    }
+    
+    for _, tt := range tests {
+        ...
+    }
+}
+```
+### Test Handler
+```go
+echoHandler(w http.ResponseWriter, r *http.Request)
+```
+TEST:
+```go
+
+
+func TestHandler(t *testing.T) {
+    
+}
+```
+> Документация у net/http/httptest
+
