@@ -728,3 +728,46 @@ func TestHandler(t *testing.T) {
 ```
 > Документация у net/http/httptest
 
+# Лекция 9
+## "log/slog"
+### Инициализация 
+```go
+func initJSONLogger() *slog.Logger {
+    return slog.New(slog.newJSONHandler(os.Stdout, &slog.HandlerOptions{
+        Level: slog.LevelInfo,
+    }))
+}
+```
+### Использование
+```go
+func logWithAttributes(log *slog.Logger) {
+    log.Info("task created",
+        slog.Int64("task_id", 42),
+        slog.String("name", "Buy milk")
+    )
+    // OR SHORTER
+    log.Info("task created", "task_id", 42, "name", "Buy milk")
+}
+```
+
+```go
+...
+reqLog := log.With("requist_id", "abc-123")
+reqLog.Info("task created", "task_id", 42)
+// "task created", "task_id": 42, "requist_id": "abc-123"
+```
+
+### Logger interceptor (for gRPC)
+```go
+func LoggingInterceptor(log *slog.Logger) grpc.UnaryServerInterceptor {
+    return func(ctx context.Context. req any, info *grpc.UnaryServerInfo. handler *grpc.Handler) {
+        md, _ := metadata.FromIncomingContext(ctx)
+        requestID := ""
+        if ids := md.Get("x-request-id"); len(ids) > 0 {
+            requestID = ids[0]
+        }
+        log := log.With("request_id", requestID, "method", info.FullMethod)
+        log.InfoContext()
+    }
+}
+```
