@@ -380,3 +380,47 @@ innerHTML с учётом тегов
 ## getAttribute, setAttribute
 - **Атрибуты** - исходные значения, заданные в HTML коде, к ним обращаются через `getAttribute`, `setAttribute`..., всегда строка
 - **Свойство** - поля DOM-объекта, могут быть любого типа, доступ через точечную нотацию: `element.id`
+
+# Лекция какая-то
+JS имеет прототипное наследование, объекты в JS могут наследовать свойства и методы других объектов, это даёт невероятную гибкость  
+  
+## Функции конструкторы
+```js
+function User(name) {
+    this.name = name;
+}
+User.prototype.sayHi = function() {
+    console.log(`Hi, I'm ${this.name}`);
+}
+```
+
+## Конструктор класс
+```js
+class Animal {
+    constructor(name) { this.name = name; }
+}
+
+class Dog extends Animal {
+    constructor(name, breed) {
+        super(name);
+        this.breed = breed;
+    }
+}
+```
+
+## Вычисляемые имена методов
+```js
+const methodName = "sayHello";
+const prefix = "get";
+class Greeter {
+    [methodName]() {
+        console.log("Hello!");
+    }
+    [prefix + "Name"]() {
+        ...
+    }
+}
+```
+
+## Защищённые свойства
+Просто через `_` (например, `_balance`), только через геттер и сеттер
