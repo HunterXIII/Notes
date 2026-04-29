@@ -131,3 +131,5 @@ HTTP cookies are built specifically for web browsers to track, personalize and s
 5. The article mentions that STLC helps with the "Early Detection of Defects." Why is this considered an important benefit? What advantage does it give a project?
     
     This means that errors can be discovered and resolved before they evolve into more severe issues later on. This method addresses problems when they are less costly to fix, therefore saving both time and money.
+
+# Homework
