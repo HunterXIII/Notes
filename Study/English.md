@@ -133,3 +133,42 @@ HTTP cookies are built specifically for web browsers to track, personalize and s
     This means that errors can be discovered and resolved before they evolve into more severe issues later on. This method addresses problems when they are less costly to fix, therefore saving both time and money.
 
 # Homework
+### **1. In your own words, what is the single most important difference between how a virtual machine (VM) and a container achieve isolation?** 
+
+VMs use a hypervisor for isolation, while each container is isolated from the others and does not require additional operating system emulation.
+
+### **2. The article says containers are "lightweight." What specifically makes a container lighter than a virtual machine?** 
+
+They share the host OS kernel. Because of this, **containers consume less resources than virtual machines and start up quickly**.
+
+### **3. If your company needed to run an old, critical application that only works on a specific older version of Windows, would you choose virtualization or containerization? Why?**
+
+I would choose virtualization because it creates a **virtual version of physical resources**. This allows you to run a specific older OS version safely.
+
+### **4. The article contrasts "strong isolation" (VMs) with "process isolation" (containers). In a real-world project, when might strong isolation be worth the extra resource cost?** 
+
+It is worth it for security because **a failure on one VM does not affect the operation of the others**, preventing **work interruption**. Also, a **vulnerability in the operating system kernel carries risks for containers as well**.
+
+### **5. Why does the article link containerization so strongly with "microservices architectures" and "cloud-native applications"?**
+
+A container for each small service. This makes them very fast and easy to scale in the cloud.
+
+### **6. If a startup needs to deploy a new web application quickly, test frequent updates, and keep cloud hosting costs low, which technology would you recommend from the article and why?**
+
+I recommend containers because they save on **computing power**. In virtualization, **the performance will be slightly lower** due to higher overhead.
+
+### **7. Why are containers considered "highly portable" while VMs are "less portable"? Explain the technical reason.** 
+
+A container is a single executable environment  that packages everything together. It runs exactly the same on any computer or server.
+
+### **8. Imagine a team has one powerful physical server. They need to run three applications, each with slightly different Linux distributions (e.g., Ubuntu 18.04, CentOS 7, and Debian 10). According to the article, which technology is better suited – VMs or containers? Justify your answer.**
+
+Virtualization is better because it can **run multiple virtual machines (VMs) simultaneously**. The hypervisor can then **allocate the necessary power to each VM as needed**.
+
+### **9. The article states the virtualization ecosystem is "mature" while containerization has a "growing ecosystem." What does that statement imply for a company choosing between the two technologies today?**
+
+It means that **technology continues to evolve, and technical knowledge is required to immerse yourself in it** to keep up with new tools.
+
+### **10. Based on the "Resource Utilization" row in the comparison table, which technology would be more environmentally friendly for a large data center running thousands of similar application instances? Explain your reasoning.**
+
+Containers are better because **containers consume less resources than virtual machines and start up quickly**, which saves a lot of electricity.
