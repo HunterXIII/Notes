@@ -172,3 +172,10 @@ It means that **technology continues to evolve, and technical knowledge is requi
 ### **10. Based on the "Resource Utilization" row in the comparison table, which technology would be more environmentally friendly for a large data center running thousands of similar application instances? Explain your reasoning.**
 
 Containers are better because **containers consume less resources than virtual machines and start up quickly**, which saves a lot of electricity.
+
+# SQA Speaking
+1. SQA is called an umbrella activity because it covers development process from start to finish. It works in parallel with development to prevent bugs early. Finding problems early is much cheaper and faster than fixing them at the end.
+2. I once used a delivery app that crashed every time I tried to pay. It was very frustrating because I could not finish my order. This bad experience made me lose trust in the company, so I deleted the app and switched to a competitor.
+3. Yes, I think startups should invest in simple SQA processes. They do not need expensive tools or heavy paperwork. However, if a startup releases a broken app, users will leave right away and never come back.
+4. Process monitoring is the hardest activity to implement in a real team. Developers often do not like strict rules or extra audits. They feel that these controls slow down their daily coding work.
+5. AI transforms SQA by letting teams write tests in simple English without heavy coding. AI tools can also fix tests automatically when the interface changes. AI will not replace human QA engineers. Instead, it will handle boring, repetitive tasks while humans focus on strategy and complex user scenarios.
